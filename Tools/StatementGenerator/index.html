@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tool for developing xAPI statements and communicating with a Learning Record Store (LRS)">
+    <meta name="author" content="ADL">
+    <link rel="icon" href="favicon.ico">
+
+    <title>xAPI Workshop - Statement Generator</title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="chartist/chartist.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div id="console-panel">
+        <a href="#" class="btn btn-info" id="opener"><i class="fa fa-history"></i></a>
+        <h4>Status History</h4>
+        <div id="console-history">
+        </div>
+    </div>
+
+    <section class="container">
+
+
+      <div class="page-header">
+        <h1 class="text-primary"><i class="fa fa-flask"></i>xAPI Workshop - Statement Generator</h1>
+        <h3 class="text-muted">Tool for developing xAPI statements and communicating with a Learning Record Store (LRS)</h3>
+      </div>
+
+
+      <div class="panel panel-primary">
+        <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#smar" href="#smar">Statement Manipulation and Graphs</a></h3></div>
+        <div id="smar" class="panel-collapse collapse in">
+          <div class="panel-body">
+
+            <div role="tabpanel">
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab-smar-sending" aria-controls="tab-smar-sending" role="tab" data-toggle="tab">Sending</a></li>
+<!--                <li role="presentation"><a href="#tab-smar-receiving" aria-controls="tab-smar-receiving" role="tab" data-toggle="tab">Receiving</a></li>-->
+                <li role="presentation"><a href="#tab-smar-graphs" aria-controls="tab-smar-graphs" role="tab" data-toggle="tab">Graphs</a></li>
+              </ul>
+              
+              <div class="row">
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+
+                  <div role="tabpanel" class="tab-pane active" id="tab-smar-sending">
+
+                    <div class="col-md-12">
+
+                      <div class="panel panel-info">
+                        <div class="panel-heading collapser">
+                          <h4 class="panel-title"><a data-toggle="collapse" data-target="#avo" href="#avo">Statement Builder</a></h4>
+                        </div>
+                        <div id="avo" class="panel-collapse collapse in">
+                          <div class="panel-body">
+
+                            <form id="statement-builder-values">
+
+                              <div class="row">
+
+                                <div class="col-md-12">
+
+                                  <div class="panel panel-info">
+                                    <div class="panel-heading"><h3 class="panel-title">Actor <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#actor" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div class="panel-body">
+
+<!--
+                                      <div class="row">
+
+                                        <div class="form-group col-md-5">
+                                          <label class="control-label" for="actor-type">Actor Type</label>
+                                          <select class="form-control" name="actor-type" id="actor-type">
+                                            <option value="Agent">Agent</option>
+                                            <option value="Group">Group</option>
+                                          </select>
+                                          <div class="help-block"></div>
+                                        </div>
+                                      </div>
+-->
+                                     <!-- .row -->
+
+                                      <div id="actor-types">
+
+                                        <div id="actor-Agent">
+
+                                          <div class="row">
+
+                                            <div class="col-md-6 ifi">
+                                              
+<!--                                              <h4 class="text-info">Use Only One <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#inversefunctional" target="_blank" title="Inverse Functional Identifier">IFI</a> Below:</h4>-->
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-agent-email">Email</label>
+                                                <input type="email" class="form-control" placeholder="jonathan.poltrack.ctr@adlnet.gov" data-actor_agent_ifi="ifi" aria-describedby="Actor Agent Email" id="actor-agent-email" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <!-- hide all of this stuff -->
+                                              <div class="hide form-group">
+                                                <label class="control-label" for="actor-agent-email-sha1">Email SHA1</label>
+                                                <input type="text" class="form-control" placeholder="f522a694d7fc5c38d7c604f63c87c9f74dcd002e"data-actor_agent_ifi="ifi" aria-describedby="Actor Agent Email SHA1" id="actor-agent-email-sha1" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="hide form-group">
+                                                <label class="control-label" for="actor-agent-openid">OpenID</label>
+                                                <input type="text" class="form-control" placeholder="http://tyler.openid.example.com"  data-actor_agent_ifi="ifi" aria-describedby="Actor Agent OpenID" id="actor-agent-openid" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="hide form-group">
+                                                <label class="control-label" for="actor-agent-account">Account</label>
+                                                <textarea class="form-control" rows="4" data-actor_agent_ifi="ifi" data-empty="true" aria-describedby="Actor Agent Account" id="actor-agent-account"></textarea>
+                                                <div class="help-block with-errors"></div>
+                                                <div>An Account Object <span class="pull-right"><a href="#" id="actor-agent-account-example">Insert Example JSON</a></span></div>
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                            <div class="col-md-6">
+
+                                              <h4 class="hide text-info">Optional:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-agent-name">Name</label>
+                                                <input type="text" class="form-control" placeholder="Jono Poltrack"  aria-describedby="Actor Agent Name" id="actor-agent-name" />
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                          </div><!-- .row -->
+
+                                        </div><!-- #actor-Agent -->
+
+                                        <div class="hide" id="actor-Group">
+                                          
+                                          <div class="row">
+
+                                            <div class="col-md-6 ifi">
+                                              
+                                              <h4 class="text-info">Use Only One <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#inversefunctional" target="_blank" title="Inverse Functional Identifier">IFI</a> Below, Unless <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#requirements-for-anonymous-groups" target="_blank">Anonymous Group</a>:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-group-email">Email</label>
+                                                <input type="email" class="form-control" value="teamxapi@example.com" data-actor_group_ifi="ifi" aria-describedby="Actor Group Email" id="actor-group-email" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-group-email-sha1">Email SHA1</label>
+                                                <input type="text" class="form-control" placeholder="3931fc689771433af943607547a38feb5e916ffd" data-actor_group_ifi="ifi" aria-describedby="Actor Group Email SHA1" id="actor-group-email-sha1" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-group-openid">OpenID</label>
+                                                <input type="text" class="form-control" placeholder="http://teamxapi.openid.example.com" data-actor_group_ifi="ifi" aria-describedby="Actor Group OpenID" id="actor-group-openid" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-group-account">Account</label>
+                                                <textarea class="form-control" rows="4" data-actor_group_ifi="ifi" aria-describedby="Actor Group Account" id="actor-group-account"></textarea>
+                                                <div class="help-block with-errors">An Account Object <span class="pull-right"><a href="#" id="actor-group-account-example">Insert Example JSON</a></span></div>
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                            <div class="col-md-6">
+
+                                              <h4 class="text-info">Optional:</h4>
+                                              
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-group-name">Group Name</label>
+                                                <input type="text" class="form-control" value="" placeholder="Student Group" aria-describedby="Actor Group Name" id="actor-group-name" />
+                                              </div>
+
+                                              <h4 class="text-info">Required if <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#requirements-for-anonymous-groups" target="_blank">Anonymous Group</a>, Otherwise Optional:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="actor-group-members">Group Members</label>
+                                                <textarea class="form-control" rows="15" data-actor_group_ifi="ifi" aria-describedby="Actor Group Members" id="actor-group-members"></textarea>
+                                                <div class="help-block with-errors">Array of Agent Objects</div>
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                          </div><!-- .row -->
+                                        
+                                        </div><!-- #object-Group -->
+
+                                      </div><!-- #actor-types -->
+
+                                    </div><!-- .panel-body -->
+                                  </div><!-- .panel -->
+
+                                    
+                                    
+                                  <div class="panel panel-info">
+                                    <div class="panel-heading"><h3 class="panel-title">Verb <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#verb" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div class="panel-body">
+
+                                      <div class="row">
+
+                                        <div class="form-group col-md-5">
+                                          <label class="control-label" for="predefined-verb">Predefined Verbs</label>
+                                          <select class="form-control" name="predefined-verb" id="predefined-verb"></select>
+                                        </div>
+
+                                        <div class="form-group col-md-5">
+                                          <label class="control-label" for="verb-display">Display Name</label>
+                                          <input type="text" class="form-control" value="answered" aria-describedby="Display" id="verb-display" />
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                          <label class="control-label" for="verb-language">Language</label>
+                                          <input type="text" class="form-control" value="en-US" aria-describedby="Verb Language" id="verb-language" required />
+                                        </div>
+
+                                      </div><!-- .row -->
+
+                                      <div class="row">
+
+                                        <div class="form-group col-md-12">
+                                          <label class="control-label" for="verb-id">Verb ID</label>
+                                          <input type="text" class="form-control" value="http://adlnet.gov/expapi/verbs/answered" aria-describedby="Verb ID" id="verb-id" required />
+                                        </div>
+
+                                      </div><!-- .row -->
+
+                                    </div><!-- .panel-body -->
+                                  </div><!-- .panel -->
+
+                                  <div class="panel panel-info">
+                                    <div class="panel-heading"><h3 class="panel-title">Object <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#object" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div class="panel-body">
+
+                                      <div class="row">
+
+                                        <div class="hide form-group col-md-5">
+                                          <label class="control-label" for="object-type">Object Type</label>
+                                          <select class="form-control" name="object-type" id="object-type">
+                                            <option value="Activity" selected>Activity</option>
+                                            <option value="Agent">Agent</option>
+                                            <option value="Group">Group</option>
+                                            <option value="StatementRef">Statement Reference</option>
+                                            <option value="SubStatement">SubStatement</option>
+                                          </select>
+                                        </div>
+
+                                      </div><!-- .row -->
+
+                                      <div id="object-types">
+
+                                        <div id="object-Activity">
+
+                                          <div class="row">
+
+                                            <div class="hide form-group col-md-12">
+                                              <label class="control-label" for="object-activity-id">Activity ID</label>
+                                              <input type="text" class="form-control" value="http://adlnet.gov/expapi/activities/example" aria-describedby="Object Activity ID" id="object-activity-id" required />
+                                            </div>
+                                              
+                                              <!-- JONO ADDED -->
+                                              <div class="form-group col-md-5">
+                                                  <label class="control-label" for="object-type-list">Select Activity</label>
+                                                  <select class="form-control" name="object-type-list" id="object-type-list">      
+                                                    <option value="course">How to Make French Toast Course</option>
+                                                    <option value="toc">Table of Contents</option>
+                                                    <option value="intro">Introduction Module</option>
+                                                    <option value="intro1">Introduction Module - Page 1</option>
+                                                    <option value="ingredients">Ingredients Module</option>
+                                                    <option value="ingredients1">Ingredients Module - Page 1</option>
+                                                    <option value="ingredients2">Ingredients Module - Page 2</option>
+                                                    <option value="steps">Steps Module</option>
+                                                    <option value="steps1">Steps Module - Page 1</option>
+                                                    <option value="steps2">Steps Module - Page 2</option>
+                                                    <option value="steps3">Steps Module - Page 3</option>
+                                                    <option value="steps4">Steps Module - Page 4</option>
+                                                    <option value="steps5">Steps Module - Page 5</option>
+                                                    <option value="steps6">Steps Module - Page 6</option>
+                                                    <option value="steps7">Steps Module - Page 7</option>
+                                                    <option value="steps8">Steps Module - Page 8</option>
+                                                    <option value="steps9">Steps Module - Page 9</option>
+                                                    <option value="videomodule">Video Module</option>
+                                                    <option value="video">Video</option>
+                                                    <option value="quiz">Quiz Module</option>
+                                                    <option value="quiz1">Quiz Module - Question 1</option>
+                                                    <option value="quiz2">Quiz Module - Question 2</option>
+                                                    <option value="quiz3">Quiz Module - Question 3</option>
+                                                  </select>
+                                                </div>
+                                            <!-- END JONO ADDED -->
+
+                                          </div><!-- .row -->
+
+                                          <div class="row">
+
+                                              <div class="form-group col-md-12">
+                                              <label class="control-label" for="object-activity-name">ID</label>
+                                              <input type="text" class="form-control" value="http://adlnet.gov/xapi/samples/xapi-jqm/course/" aria-describedby="Object Acitivity Name" id="object-activity-name" />
+                                            </div>
+                                          </div>
+                                            
+                                          <div class="row">
+                                            <div class="form-group col-md-12">
+                                              <label class="control-label" for="object-activity-description">Name</label>
+                                              <input type="text" class="form-control" value="How to Make French Toast xapi-jqm Course Demo" aria-describedby="Object Activity Description" id="object-activity-description" />
+                                            </div>
+
+                                            <div class="hide form-group col-md-2">
+                                              <label class="control-label" for="object-activity-language">Language</label>
+                                              <input type="text" class="form-control" value="en-US" aria-describedby="Object Activity Language" id="object-activity-language" />
+                                            </div>
+
+                                          </div><!-- .row -->
+
+                                          <div class="hide row">
+
+                                            <div class="form-group col-md-6">
+                                              <label class="control-label" for="object-activity-type">Activity Type</label>
+                                              <input type="text" class="form-control" placeholder="http://www.example.co.uk/types/exampleactivitytype" aria-describedby="Object Activity Type" id="object-activity-type" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                              <label class="control-label" for="object-activity-more-info">More Info</label>
+                                              <input type="text" class="form-control" placeholder="http://virtualmeeting.example.com/345256" aria-describedby="Object More Info" id="object-activity-more-info" />
+                                            </div>
+                                              
+                                          </div><!-- .row -->
+
+                                          <div class="hide row">
+
+                                              <div class="form-group col-md-5">
+                                                <label class="control-label" for="object-activity-interaction-type">Interaction Type</label>
+                                                <select class="form-control" name="object-activity-interaction-type" id="object-activity-interaction-type">
+                                                  <option selected></option>
+                                                  <option>choice</option>
+                                                  <option>sequencing</option>
+                                                  <option>likert</option>
+                                                  <option>matching</option>
+                                                  <option>performance</option>
+                                                  <option>true-false</option>
+                                                  <option>fill-in</option>
+                                                  <option>long-fill-in</option>
+                                                  <option>numeric</option>
+                                                  <option>other</option>
+                                                </select>
+                                                <div class="help-block"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#interactionacts" target="_blank">Interaction Activities</a></div>
+                                              </div>
+
+                                          </div><!-- .row -->
+
+                                          <div id="component-lists">
+
+                                            <div class="row" id="component-list-choices">
+
+                                                <div class="form-group col-md-12">
+                                                  <label class="control-label" for="object-activity-component-list-choices">Choices</label>
+                                                  <textarea class="form-control" rows="10" aria-describedby="Object Component List Choices" id="object-activity-component-list-choices"></textarea>
+                                                  <div class="help-block">An Array of interaction components <span class="pull-right"><a href="#" id="object-activity-component-list-choices-example">Insert Example JSON</a></span></div>
+                                                </div>
+
+                                            </div><!-- .row -->
+
+                                            <div class="row" id="component-list-scale">
+
+                                                <div class="form-group col-md-12">
+                                                  <label class="control-label" for="object-activity-component-list-scale">Scale</label>
+                                                  <textarea class="form-control" rows="10" aria-describedby="Object Scale List Choices" id="object-activity-component-list-scale"></textarea>
+                                                  <div class="help-block">An Array of interaction components <span class="pull-right"><a href="#" id="object-activity-component-list-scale-example">Insert Example JSON</a></span></div>
+                                                </div>
+
+                                            </div><!-- .row -->
+
+                                            <div class="row" id="component-list-source">
+
+                                                <div class="form-group col-md-12">
+                                                  <label class="control-label" for="object-activity-component-list-source">Source</label>
+                                                  <textarea class="form-control" rows="10" aria-describedby="Object Source List Choices" id="object-activity-component-list-source"></textarea>
+                                                  <div class="help-block">An Array of interaction components <span class="pull-right"><a href="#" id="object-activity-component-list-source-example">Insert Example JSON</a></span></div>
+                                                </div>
+
+                                            </div><!-- .row -->
+
+                                            <div class="row" id="component-list-target">
+
+                                                <div class="form-group col-md-12">
+                                                  <label class="control-label" for="object-activity-component-list-target">Target</label>
+                                                  <textarea class="form-control" rows="10" aria-describedby="Object Target List Choices" id="object-activity-component-list-target"></textarea>
+                                                  <div class="help-block">An Array of interaction components <span class="pull-right"><a href="#" id="object-activity-component-list-target-example">Insert Example JSON</a></span></div>
+                                                </div>
+
+                                            </div><!-- .row -->
+
+                                            <div class="row" id="component-list-steps">
+
+                                                <div class="form-group col-md-12">
+                                                  <label class="control-label" for="object-activity-component-list-steps">Steps</label>
+                                                  <textarea class="form-control" rows="10" aria-describedby="Object Steps List Choices" id="object-activity-component-list-steps"></textarea>
+                                                  <div class="help-block">An Array of interaction components <span class="pull-right"><a href="#" id="object-activity-component-list-steps-example">Insert Example JSON</a></span></div>
+                                                </div>
+
+                                            </div><!-- .row -->
+
+                                          </div><!-- #component-lists -->
+
+                                          <div class="row" id="correct-responses-pattern">
+
+                                            <div class="form-group col-md-12">
+                                              <label class="control-label" for="object-activity-correct-responses-pattern">Correct Responses Pattern</label>
+                                              <textarea class="form-control" rows="10" aria-describedby="Correct Responses Pattern" id="object-activity-correct-responses-pattern"></textarea>
+                                              <div class="help-block">An Array of Strings <span class="pull-right"><a href="#" id="object-activity-correct-responses-pattern-example">Insert Example JSON</a></span></div>
+                                            </div>
+                                              
+                                          </div><!-- .row -->
+
+                                          <div class="hide row">
+
+                                            <div class="form-group col-md-12">
+                                              <label class="control-label" for="object-activity-extensions">Extensions</label>
+                                              <textarea class="form-control" rows="5" aria-describedby="Activity Extensions" id="object-activity-extensions"></textarea>
+                                              <div class="help-block"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#miscext" target="_blank">Extensions</a></div>
+                                            </div>
+
+                                          </div><!-- .row -->
+                                        
+                                        </div><!-- #object-Activity -->
+
+                                        <div id="object-Agent">
+
+                                          <div class="row">
+
+                                            <div class="col-md-6 ifi">
+                                              
+                                              <h4 class="text-info">Use Only One <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#inversefunctional" target="_blank" title="Inverse Functional Identifier">IFI</a> Below:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-agent-email">Email</label>
+                                                <input type="email" class="form-control" value="tyler.mulligan.ctr@adlnet.gov" data-object_agent_ifi="ifi" aria-describedby="Object Agent Email" id="object-agent-email" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-agent-email-sha1">Email SHA1</label>
+                                                <input type="text" class="form-control" placeholder="f522a694d7fc5c38d7c604f63c87c9f74dcd002e" data-object_agent_ifi="ifi" aria-describedby="Object Agent Email SHA1" id="object-agent-email-sha1" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-agent-openid">OpenID</label>
+                                                <input type="text" class="form-control" placeholder="http://tyler.openid.example.com" data-object_agent_ifi="ifi" aria-describedby="Object Agent OpenID" id="object-agent-openid" />
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-agent-account">Account</label>
+                                                <textarea class="form-control" rows="4" data-object_agent_ifi="ifi" aria-describedby="Object Agent Account" id="object-agent-account"></textarea>
+                                                <div class="help-block with-errors">An Account Object <span class="pull-right"><a href="#" id="object-agent-account-example">Insert Example JSON</a></span></div>
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                            <div class="col-md-6">
+
+                                              <h4 class="text-info">Optional:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-agent-name">Name</label>
+                                                <input type="text" class="form-control" value="Tyler" aria-describedby="Object Agent Name" id="object-agent-name" />
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                          </div><!-- .row -->
+
+                                        </div><!-- #object-Agent -->
+
+                                        <div id="object-Group">
+                                          
+                                          <div class="row">
+
+                                            <div class="col-md-6 ifi">
+                                              
+                                              <h4 class="text-info">Use Only One <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#inversefunctional" target="_blank" title="Inverse Functional Identifier">IFI</a> Below, Unless <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#requirements-for-anonymous-groups" target="_blank">Anonymous Group</a>:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-group-email">Email</label>
+                                                <input type="email" class="form-control" value="teamxapi@example.com" data-object_group_ifi="ifi" aria-describedby="Object Group Email" id="object-group-email" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-group-email-sha1">Email SHA1</label>
+                                                <input type="text" class="form-control" placeholder="3931fc689771433af943607547a38feb5e916ffd" data-object_group_ifi="ifi" aria-describedby="Object Group Email SHA1" id="object-group-email-sha1" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-group-openid">OpenID</label>
+                                                <input type="text" class="form-control" placeholder="http://teamxapi.openid.example.com" data-object_group_ifi="ifi" aria-describedby="Object Group OpenID" id="object-group-openid" />
+                                                <div class="help-block with-errors"></div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-group-account">Account</label>
+                                                <textarea class="form-control" rows="4" data-object_group_ifi="ifi" aria-describedby="Object Group Account" id="object-group-account"></textarea>
+                                                <div class="help-block with-errors">An Account Object <span class="pull-right"><a href="#" id="object-group-account-example">Insert Example JSON</a></span></div>
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                            <div class="col-md-6">
+
+                                              <h4 class="text-info">Optional:</h4>
+                                              
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-group-name">Group Name</label>
+                                                <input type="text" class="form-control" value="" placeholder="Student Group" aria-describedby="Object Group Name" id="object-group-name" />
+                                              </div>
+
+                                              <h4 class="text-info">Required if <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#requirements-for-anonymous-groups" target="_blank">Anonymous Group</a>, Otherwise Optional:</h4>
+
+                                              <div class="form-group">
+                                                <label class="control-label" for="object-group-members">Group Members</label>
+                                                <textarea class="form-control" rows="15" data-object_group_ifi="ifi" aria-describedby="Object Group Members" id="object-group-members"></textarea>
+                                                <div class="help-block with-errors">Array of Agent Objects</div>
+                                              </div>
+
+                                            </div><!-- .col-md-6 -->
+
+                                          </div><!-- .row -->
+                                        
+                                        </div><!-- #object-Group -->
+
+                                        <div id="object-StatementRef">
+                                          
+                                          <div class="row">
+
+                                            <div class="form-group col-md-6">
+                                              <label class="control-label" for="object-statementref-id">Statement ID</label>
+                                              <input type="text" class="form-control" value="" placeholder="137ca18f-97f6-4477-981a-696fb41c6b63" aria-describedby="Object Statement Reference ID" id="object-statementref-id" pattern="^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$" required />
+                                            </div>
+
+                                          </div><!-- .row -->
+                                        
+                                        </div><!-- #object-StatementRef -->
+
+                                        <div id="object-SubStatement">
+                                          
+                                          <div class="row">
+
+                                            <div class="form-group col-md-12">
+                                              <label class="control-label" for="object-substatement-json">SubStatement JSON</label>
+                                              <textarea class="form-control" rows="20" aria-describedby="Object SubStatement JSON" id="object-substatement-json" required></textarea>
+                                            </div>
+
+                                          </div><!-- .row -->
+                                        
+                                        </div><!-- #object-SubStatement -->
+
+                                      </div><!-- #object-types -->
+
+                                    </div><!-- .panel-body -->
+                                  </div><!-- .panel -->
+
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#result" href="#result" class="collapsed">Result</a> <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#result" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div id="result" class="panel-collapse collapse">
+                                      <div class="panel-body">
+
+                                        <div class="row">
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="result-scaled-score">Scaled Score</label>
+                                            <!-- arbitrary number of decimal places due to html5 number input limitions -->
+                                            <input type="number" min="-1" max="1" step="0.00001" pattern="^[0-9]*(.)?[0-9]+$" class="form-control" placeholder="0" aria-describedby="Scaled Score" id="result-scaled-score" />
+                                          </div>
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="result-raw-score">Raw Score</label>
+                                            <input type="number" class="form-control" placeholder="80" aria-describedby="Raw Score" id="result-raw-score" />
+                                          </div>
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="result-min-score">Minimum Score</label>
+                                            <input type="number" class="form-control" placeholder="0" aria-describedby="Minimum Score" id="result-min-score" />
+                                          </div>
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="result-max-score">Maximum Score</label>
+                                            <input type="number" class="form-control" placeholder="100" aria-describedby="Maximum Score" id="result-max-score" />
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="row">
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="result-success">Success</label>
+                                            <select class="form-control" name="result-success" id="result-success">
+                                              <option></option>
+                                              <option>true</option>
+                                              <option>false</option>
+                                            </select>
+                                          </div>
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="result-completion">Completion</label>
+                                            <select class="form-control" name="result-completion" id="result-completion">
+                                              <option></option>
+                                              <option>true</option>
+                                              <option>false</option>
+                                            </select>
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="row">
+
+                                          <div class="form-group col-md-12">
+                                            <label class="control-label" for="result-response">Response</label>
+                                            <input type="text" class="form-control" aria-describedby="Response" id="result-response" />
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-3">
+                                            <label class="control-label" for="result-duration">Duration</label>
+                                            <input type="text" class="form-control" aria-describedby="Duration" placeholder="P3Y6M4DT12H30M5S" id="result-duration" />
+                                            <span class="help-block"><a href="http://www.wikiwand.com/en/ISO_8601#/Durations" target="_blank">ISO 8601 Duration</a></span>
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label>Build</label>
+                                            <p style="margin-top:6px;">string <i class="fa fa-arrow-right"></i></p>
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-years">Years</label>
+                                            <input type="number" min="0" max="99999" step="1" class="form-control duration-segment" aria-describedby="Duration Years" id="result-duration-years" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-months">Months</label>
+                                            <input type="number" min="0" max="12" step="1"  class="form-control duration-segment" aria-describedby="Duration Months" id="result-duration-months" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-weeks">Weeks</label>
+                                            <input type="number" min="0" max="52" step="1"  class="form-control duration-segment" aria-describedby="Duration Weeks" id="result-duration-weeks" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-days">Days</label>
+                                            <input type="number" min="0" max="365" step="1"  class="form-control duration-segment" style="padding:6px 6px 6px 10px" aria-describedby="Duration Days" id="result-duration-days" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-hours">Hours</label>
+                                            <input type="number" min="0" max="24" step="1" class="form-control duration-segment" aria-describedby="Duration Hours" id="result-duration-hours" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-minutes">Minutes</label>
+                                            <input type="number" min="0" max="60" step="1" class="form-control duration-segment" aria-describedby="Duration Minutes" id="result-duration-minutes" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-seconds">Seconds</label>
+                                            <input type="number" min="0" max="60" step="1"  class="form-control duration-segment" aria-describedby="Duration Seconds" id="result-duration-seconds" />
+                                          </div>
+
+                                          <div class="form-group col-md-1">
+                                            <label class="control-label" for="result-duration-milliseconds">ms</label>
+                                            <input type="number" min="0" max="60" step="1"  class="form-control duration-segment" aria-describedby="Duration Milliseconds" id="result-duration-milliseconds" />
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="row">
+
+                                          <div class="form-group col-md-12">
+                                            <label class="control-label" for="result-extensions">Extensions</label>
+                                            <textarea class="form-control" rows="5" aria-describedby="Result Extensions" id="result-extensions"></textarea>
+                                            <div class="help-block"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#miscext" target="_blank">Extensions</a></div>
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                      </div><!-- .panel-body -->
+                                    </div><!-- #result -->
+                                  </div><!-- .panel -->
+
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#context" href="#context" class="collapsed">Context</a> <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#context" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div id="context" class="panel-collapse collapse">
+                                      <div class="panel-body">
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-6">
+                                            <label class="control-label" for="context-registration-id">Registration ID</label>
+                                            <input type="text" class="form-control" value="" aria-describedby="Registration ID" placeholder="51a6f860-1997-11e3-8ffd-0800200c9a66" pattern="^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$" id="context-registration-id" />
+                                          </div>
+
+                                        </div>
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-6">
+                                            <label class="control-label" for="context-instructor-email">Instructor Email</label>
+                                            <input type="email" class="form-control" placeholder="tyler.mulligan.ctr@adlnet.gov" aria-describedby="Instuctor Email" id="context-instructor-email" />
+                                          </div>
+
+                                          <div class="form-group col-md-6">
+                                            <label class="control-label" for="context-instructor-name">Instructor Name</label>
+                                            <input type="text" class="form-control" placeholder="Tyler" aria-describedby="Instructor Name" id="context-instructor-name" />
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-6">
+                                            <label class="control-label" for="context-team-name">Team Name</label>
+                                            <input type="text" class="form-control" value="" placeholder="Student Team" aria-describedby="Context Team Name" id="context-team-name" />
+                                          </div>
+
+                                          <div class="form-group col-md-12">
+                                            <label class="control-label" for="context-team-members">Team Members</label>
+                                            <textarea class="form-control" rows="15" aria-describedby="Context Team Members" id="context-team-members"></textarea>
+                                            <span class="help-block">Array of Agent Objects <span class="pull-right"><a href="#" id="context-team-members-example">Insert Example JSON</a></span></span>
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="row">
+
+                                          <div class="form-group col-md-12">
+                                            <label class="control-label" for="context-context-activities">Context Activities</label>
+                                            <textarea class="form-control" rows="25" aria-describedby="Context Activities" id="context-context-activities"></textarea>
+<!--
+                                            <span class="help-block">A Context Activities Object <span class="pull-right"><a href="#" id="context-context-activities-example">Insert Example JSON</a></span>
+                                            </span>
+-->
+                                          </div>
+
+                                        </div><!-- .row -->
+                                        <div class="row">
+                                            <span class="pull-right">
+                                            <a href="#" id="context-nato-grouping">Insert NATO Forum Context</a>
+                                            <br />
+                                            <a href="#" id="context-course-parent">Insert Course Parent Context</a>
+                                            <br />
+                                            <a href="#" id="context-intro-parent">Insert Intro Parent Context</a>
+                                            <br />
+                                            <a href="#" id="context-ingredients-parent">Insert Ingredients Parent Context</a>
+                                            <br />   
+                                            <a href="#" id="context-steps-parent">Insert Steps Parent Context</a>
+                                            <br />   
+                                            <a href="#" id="context-video-parent">Insert Video Parent Context</a>
+                                            <br />  
+                                            <a href="#" id="context-quiz-parent">Insert Quiz Parent Context</a>
+                                            <br />         
+                                            </span>
+                                        </div>
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-3">
+                                            <label class="control-label" for="context-revision">Revision</label>
+                                            <input type="text" class="form-control" aria-describedby="Revision" id="context-revision" />
+                                          </div>
+
+                                          <div class="form-group col-md-7">
+                                            <label class="control-label" for="context-platform">Platform</label>
+                                            <input type="text" class="form-control" aria-describedby="Platform" id="context-platform" />
+                                          </div>
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="context-language">Language</label>
+                                            <input type="text" class="form-control" aria-describedby="Language" id="context-language" />
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-6">
+                                            <label class="control-label" for="context-statement">Statement</label>
+                                            <input type="text" class="form-control" placeholder="137ca18f-97f6-4477-981a-696fb41c6b63" aria-describedby="Context Statement" id="context-statement" pattern="^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$" />
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                        <div class="hide row">
+
+                                          <div class="form-group col-md-12">
+                                            <label class="control-label" for="context-extensions">Extensions</label>
+                                            <textarea class="form-control" rows="5" aria-describedby="Context Extensions" id="context-extensions"></textarea>
+                                            <div class="help-block"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#miscext" target="_blank">Extensions</a></div>
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                      </div><!-- .panel-body -->
+                                    </div><!-- #context -->
+                                  </div><!-- .panel -->
+
+                                  <div class="hide panel panel-default">
+                                    <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#attachments" href="#attachments" class="collapsed">Attachments</a> <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#attachments" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div id="attachments" class="panel-collapse collapse">
+                                      <div class="panel-body">
+
+                                        <div class="panel panel-info">
+                                          <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#attachment-1" href="#attachment-1">Attachment #1</a></h3></div>
+                                          <div id="attachment-1" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+
+                                              <div class="row">
+
+                                                <div class="form-group col-md-5">
+                                                  <label class="control-label" for="attachment-display">Display</label>
+                                                  <input type="text" class="form-control" placeholder="My Attachment" aria-describedby="Attachment Display" id="attachment-display" required />
+                                                </div>
+
+                                                <div class="form-group col-md-5">
+                                                  <label class="control-label" for="attachment-description">Description</label>
+                                                  <input type="text" class="form-control" placeholder="Example attachment description" aria-describedby="Attachment Description" id="attachment-description" />
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                  <label class="control-label" for="attachment-language">Language</label>
+                                                  <input type="text" class="form-control" placeholder="en-US" aria-describedby="Attachment Language" id="attachment-language" required />
+                                                </div>
+
+                                              </div><!-- .row -->
+
+                                              <div class="row">
+
+                                                <div class="form-group col-md-6">
+                                                  <label class="control-label" for="attachment-usage-type">Usage Type</label>
+                                                  <input type="text" class="form-control" placeholder="http://example.com/test/usage" aria-describedby="Attachment Usage Type" id="attachment-usage-type" required />
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                  <label class="control-label" for="attachment-content-type">Content Type</label>
+                                                  <input type="text" class="form-control" placeholder="image/jpeg" aria-describedby="Attachment Content Type" id="attachment-content-type" required />
+                                                </div>
+
+                                                <div class="form-group col-md-3">
+                                                  <label class="control-label" for="attachment-length">Length</label>
+                                                  <input type="number" class="form-control" placeholder="12345" aria-describedby="Attachment Length" id="attachment-length" required />
+                                                </div>
+
+                                              </div><!-- .row -->
+
+                                              <div class="row">
+
+                                                <div class="form-group col-md-6">
+                                                  <label class="control-label" for="attachment-sha2">sha2</label>
+                                                  <input type="text" class="form-control" aria-describedby="Attachment sha2" id="attachment-sha2" required />
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                  <label class="control-label" for="attachment-file-url">File URL</label>
+                                                  <input type="text" class="form-control" aria-describedby="Attachment File URL" id="attachment-file-url" />
+                                                </div>
+
+                                              </div><!-- .row -->
+
+                                            </div><!-- .panel-body -->
+                                          </div><!-- #attachments -->
+                                        </div><!-- .panel -->
+
+                                      </div><!-- .panel-body -->
+                                    </div><!-- #attachments -->
+                                  </div><!-- .panel -->
+
+                                  <div class="hide panel panel-default">
+                                    <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#statement" href="#statement" class="collapsed">Statement</a> <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#40-statement" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
+                                    <div id="statement" class="panel-collapse collapse">
+                                      <div class="panel-body">
+
+                                        <div class="row">
+
+                                          <div class="form-group col-md-5">
+                                            <label class="control-label" for="statement-timestamp">Timestamp</label>
+                                            <div class="input-group date" id="statement-timestamp">
+                                              <input type="text" class="form-control">
+                                              <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group col-md-5">
+                                            <label class="control-label" for="statement-id">Statement ID</label>
+                                            <input type="text" class="form-control" value="" aria-describedby="Statement ID" placeholder="ef8a3c05-7c88-4d46-a821-c6f2f061ef23" id="statement-id" pattern="^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$">
+                                          </div>
+
+                                          <div class="form-group col-md-2">
+                                            <label class="control-label" for="statement-version">Version</label>
+                                            <select class="form-control" name="statement-version" id="statement-version">
+                                              <option></option>
+                                              <option>1.0.0</option>
+                                              <option>1.0.1</option>
+                                              <option>1.0.2</option>
+                                              <option>1.0.3</option>
+                                            </select>
+                                          </div>
+
+                                        </div><!-- .row -->
+
+                                      </div><!-- .panel-body -->
+                                    </div><!-- #statement -->
+                                  </div><!-- .panel -->
+
+                                </div><!-- .col-md-12 -->
+
+                              </div><!-- .row -->
+
+                              <div class="form-group">
+                                <a class="btn btn-primary" href="#" role="button" id="generate-statement">Generate JSON Statement <i class="glyphicon glyphicon-fire"></i></a>
+                                <label class="control-label">
+                                  <input type="checkbox" id="automatically-build" value="yes" checked>
+                                  Automatically generate statements when I edit the form
+                                </label>
+                              </div>
+
+                            </form><!-- #statement-builder-values -->
+
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel-collapse -->
+                      </div><!-- .panel -->
+
+                    </div><!-- .col-md-12 -->
+
+                    <div class="col-md-12">
+
+                      <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Statement Editor</h3></div>
+                        <div class="panel-body">
+
+                          <div class="form-control" id="editor"></div>
+                          <p>
+                            <a class="btn btn-success" href="#" role="button" id="validate-json">Validate JSON <i class="glyphicon glyphicon-ok"></i></a>
+                            <a class="btn btn-primary" href="#" role="button" id="queue-statement">Add Statement to Queue <i class="glyphicon glyphicon-plus"></i></a>
+                            <a class="btn btn-primary" href="#" role="button" id="send-statement">Send Statement <i class="glyphicon glyphicon-send"></i></a>
+                          </p>
+
+                        </div><!-- .panel-body -->
+                      </div><!-- .panel -->
+
+                    </div><!-- .col-md-12 -->
+
+                    <div class="col-md-6">
+
+                      <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Statement Queue</h3></div>
+                        <div class="panel-body">
+                          <div id="statement-queue"></div>
+                          <div class="pull-right">
+                            <a class="btn btn-default" href="#" role="button" id="clear-statement-queue">Clear Statement Queue <i class="glyphicon glyphicon-remove-sign"></i></a>
+                            <a class="btn btn-primary" href="#" role="button" id="send-statement-queue">Send Statement Queue <i class="glyphicon glyphicon-send"></i></a>
+                          </div>
+                        </div><!-- .panel-body -->
+                      </div><!-- .panel -->
+
+                    </div><!-- .col-md-6 -->
+
+                    <div class="col-md-6">
+
+                      <div class="panel panel-default">
+                        <div class="panel-heading"><h3 class="panel-title">Statements Sent to the LRS <small><a href="http://adlnet.github.io/xapi-statement-viewer" target="_blank" class="statement-viewer pull-right">View Statements <i class="glyphicon glyphicon-new-window"></i></a></small></h3></div>
+                        <div class="panel-body">
+
+                          <div>
+                            <div id="sent-statements"></div>
+                          </div>
+
+                          <div class="pull-right">
+                            <a class="btn btn-default" href="#" role="button" id="clear-sent-statements">Clear Sent Statements <i class="glyphicon glyphicon-remove-sign"></i></a>
+                          </div>
+                      
+                        </div><!-- .panel-body -->
+                      </div><!-- .panel -->
+
+                    </div><!-- .col-md-6 -->
+
+                  </div><!-- #tab-smar-sending -->
+
+                 <!-- UPDATE #tab-smar-receiving  went here -->
+                 
+                 <!-- #tab-smar-graphs -->
+                  <div role="tabpanel" class="tab-pane" id="tab-smar-graphs">                    
+                    <!-- Graph Code -->
+                    <div class="col-md-12">
+                      
+                      <div class="page-header">
+                        <h3 class="text-muted">Example Charts using data from a Learning Record Store (LRS)</h3>
+                      </div>
+
+                      <p>
+                        <a class="btn btn-primary" href="#" role="button" id="load-graphs">Load Graphs <i class="glyphicon glyphicon-repeat"></i></a>                   
+                      </p>
+
+                      <!-- module launches chart - line -->
+                      <h4 class="panel-title" style="display:none;" id="module-launch-chart-line-label">Number of Launches per Module - Line</h4>
+                      <div class="ct-chart" id="module-launch-chart-line"></div>
+
+                     <!-- module launches chart - pie -->
+                      <h4 class="panel-title" style="display:none;"  id="module-launch-chart-bar-label">Number of Launches per Module - Bar</h4>
+                      <div class="ct-chart" id="module-launch-chart-bar"></div>
+
+                      <!-- module launches compared with page reads - dual series bar -->
+                      <h4 class="panel-title" style="display:none;"  id="page-read-dual-chart-bar-label">Number of Launches Compared to Page Reads - Dual Series Bar</h4>
+                      <div class="ct-chart" id="page-read-dual-chart-bar"></div>
+                        
+                    </div>
+                      
+                  </div> <!-- tab-smar-graphs -->
+                  
+                    
+                    
+                </div><!-- .tab-smar-content -->
+
+              </div><!-- tabpanel -->
+
+            </div><!-- .row -->
+
+          </div><!-- .panel-body -->
+        </div><!-- #smar -->
+      </div><!-- .panel -->
+
+
+      <div class="hide panel panel-primary">
+        <div class="panel-heading collapser"><h3 class="panel-title"><a data-toggle="collapse" data-target="#damar" href="#damar" class="collapsed">Document Manipulation and Response</a> <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#docapis" target="_blank"><i class="fa fa-question-circle bg-primary"></i></a></span></h3></div>
+        <div id="damar" class="panel-collapse collapse">
+          <div class="panel-body">
+
+            <form id="dmar-values">
+
+              <div class="row">
+              
+                <div class="col-md-12">
+
+                  <div class="panel panel-info">
+                    <div class="panel-heading"><h3 class="panel-title">Global Document Values</h3></div>
+                    <div class="panel-body">
+
+                      <div class="form-group col-md-6">
+                        <label class="control-label" for="document-activity-id">Activity ID</label>
+                        <input type="text" class="form-control" value="http://adlnet.gov/expapi/activities/example" aria-describedby="Activity ID" id="document-activity-id" />
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label class="control-label" for="document-actor-email">Actor Email</label>
+                        <input type="email" class="form-control" value="" aria-describedby="Actor Email" placeholder="tyler.mulligan.ctr@adlnet.gov" id="document-actor-email" />
+                      </div>
+
+                    </div><!-- .panel-body -->
+                  </div><!-- .panel -->
+
+                
+                </div><!-- .col-md-12 -->
+              </div><!-- .row -->
+
+              <div role="tabpanel">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#tab-dmar-sending" aria-controls="tab-dmar-sending" role="tab" data-toggle="tab">Sending</a></li>
+                  <li role="presentation"><a href="#tab-dmar-receiving" aria-controls="tab-dmar-receiving" role="tab" data-toggle="tab">Receiving</a></li>
+                  <li role="presentation"><a href="#tab-dmar-deleting" aria-controls="tab-dmar-deleting" role="tab" data-toggle="tab">Deleting</a></li>
+                </ul>
+
+                <div class="row">
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane active" id="tab-dmar-sending">
+
+                      <div class="col-md-6">
+
+                        <div class="panel panel-info">
+                          <div class="panel-heading"><h3 class="panel-title">Send Documents</h3></div>
+                          <div class="panel-body">
+
+                            <h4>Document</h4>
+
+                            <div role="tabpanel">
+
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#tab-1a" aria-controls="tab-1a" role="tab" data-toggle="tab">State</a></li>
+                                <li role="presentation"><a href="#tab-2a" aria-controls="tab-2a" role="tab" data-toggle="tab">Activity Profile</a></li>
+                                <li role="presentation"><a href="#tab-3a" aria-controls="tab-3a" role="tab" data-toggle="tab">Agent Profile</a></li>
+                              </ul>
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+
+                                <div role="tabpanel" class="tab-pane active" id="tab-1a">
+
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="set-document-state-id">State ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="State ID" placeholder="" id="set-document-state-id" />
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="set-document-state-string">State Value</label>
+                                      <textarea aria-describedby="State Value" class="form-control" rows="8" id="set-document-state-string"></textarea>
+                                    </div>
+
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-primary" href="#" role="button" id="send-state">Send State <i class="glyphicon glyphicon-send"></i></a>
+                                  </p>
+                          
+                                </div><!-- tab-1a -->
+
+                                <div role="tabpanel" class="tab-pane" id="tab-2a">
+                          
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="set-document-activity-profile-id">Profile ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="Agent Profile ID" placeholder="" id="set-document-activity-profile-id" />
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="set-document-activity-profile-string">Profile Value</label>
+                                      <textarea class="form-control" aria-describedby="Activity Profile Value" rows="8" id="set-document-activity-profile-string"></textarea>
+                                    </div>
+
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-primary" href="#" role="button" id="send-activity-profile">Send Activity Profile <i class="glyphicon glyphicon-send"></i></a>
+                                  </p>
+                          
+                                </div><!-- tab-2a -->
+
+                                <div role="tabpanel" class="tab-pane" id="tab-3a">
+                          
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="set-document-agent-profile-id">Profile ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="Agent Profile ID" placeholder="" id="set-document-agent-profile-id" />
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="set-document-agent-profile-string">Profile Value</label>
+                                      <textarea class="form-control" aria-describedby="Agent Profile Value" rows="8" id="set-document-agent-profile-string"></textarea>
+                                    </div>
+
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-primary" href="#" role="button" id="send-agent-profile">Send Agent Profile <i class="glyphicon glyphicon-send"></i></a>
+                                  </p>
+
+                                </div><!-- tab-3a -->
+                              
+                              </div><!-- .tab-content -->
+                              
+                            </div><!-- tab-panel -->
+
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel -->
+
+                      </div><!-- .col-md-6 -->
+                      <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title">Documents Sent to the LRS</h3></div>
+                          <div class="panel-body">
+
+                            <div>
+                              <div id="sent-documents"></div>
+                            </div>
+
+                            <div class="pull-right">
+                              <a class="btn btn-default" href="#" role="button" id="clear-sent-documents">Clear Documents <i class="glyphicon glyphicon-remove-sign"></i></a>
+                            </div>
+                        
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel -->
+
+  <!--
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title">Documents Updated in the LRS</h3></div>
+                          <div class="panel-body">
+
+                            <div>
+                              <div id="updated-documents"></div>
+                            </div>
+
+                            <div class="pull-right">
+                              <a class="btn btn-default" href="#" role="button" id="clear-updated-documents">Clear Documents <i class="glyphicon glyphicon-remove-sign"></i></a>
+                            </div>
+                        
+                          </div><!-- .panel-body -->
+  <!--                      </div><!-- .panel -->
+
+                      </div><!-- .col-md-6 -->
+
+                    </div><!-- #tab-dmar-sending -->
+
+                    <div role="tabpanel" class="tab-pane" id="tab-dmar-receiving">
+
+                      <div class="col-md-6">
+
+                        <div class="panel panel-info">
+                          <div class="panel-heading"><h3 class="panel-title">Receive Documents</h3></div>
+                          <div class="panel-body">
+
+                            <h4>Global</h4>
+
+                            <div class="row">
+                              <div class="form-group col-md-12">
+                                <label class="control-label" for="get-document-since-date">Since Date</label>
+                                <div class="input-group date" id="get-document-since-date">
+                                  <input type="text" class="form-control" />
+                                  <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <h4>Document</h4>
+
+                            <div role="tabpanel">
+
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#tab-1b" aria-controls="tab-1b" role="tab" data-toggle="tab">State</a></li>
+                                <li role="presentation"><a href="#tab-2b" aria-controls="tab-2b" role="tab" data-toggle="tab">Activity Profile</a></li>
+                                <li role="presentation"><a href="#tab-3b" aria-controls="tab-3b" role="tab" data-toggle="tab">Agent Profile</a></li>
+                              </ul>
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+
+                                <div role="tabpanel" class="tab-pane active" id="tab-1b">
+
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="get-document-state-id">State ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="State ID" placeholder="" id="get-document-state-id" />
+                                    </div>
+                                    
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-primary" href="#" role="button" id="get-state">Get State <i class="glyphicon glyphicon-cloud-download"></i></a>
+                                  </p>
+
+                                </div><!-- tab-1b -->
+
+                                <div role="tabpanel" class="tab-pane" id="tab-2b">
+              
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="get-document-activity-profile-id">Profile ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="Profile ID" placeholder="" id="get-document-activity-profile-id" />
+                                    </div>
+                                    
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-primary" href="#" role="button" id="get-activity-profile">Get Activity Profile <i class="glyphicon glyphicon-cloud-download"></i></a>
+                                  </p>
+
+                                </div><!-- tab-2b -->
+
+                                <div role="tabpanel" class="tab-pane" id="tab-3b">
+                            
+                                <div class="row">
+
+                                  <div class="form-group col-md-12">
+                                    <label class="control-label" for="get-document-agent-profile-id">Profile ID</label>
+                                    <input type="text" class="form-control" value="" aria-describedby="Profile ID" placeholder="" id="get-document-agent-profile-id" />
+                                  </div>
+                                  
+                                </div><!-- .row -->
+
+                                <p>
+                                  <a class="btn btn-primary" href="#" role="button" id="get-agent-profile">Get Agent Profile <i class="glyphicon glyphicon-cloud-download"></i></a>
+                                </p>
+
+                                </div><!-- tab-3b -->
+                              
+                              </div><!-- .tab-content -->
+                              
+                            </div><!-- tab-panel -->
+
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel -->
+
+                      </div><!-- .col-md-6 -->
+                      <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title">Documents Received from the LRS</h3></div>
+                          <div class="panel-body">
+
+                            <div>
+                              <div id="received-documents"></div>
+                            </div>
+
+                            <div class="pull-right">
+                              <a class="btn btn-default" href="#" role="button" id="clear-received-documents">Clear Documents <i class="glyphicon glyphicon-remove-sign"></i></a>
+                            </div>
+                        
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel -->
+
+                      </div><!-- .col-md-6 -->
+
+                    </div><!-- #tab-dmar-receiving -->
+
+                    <div role="tabpanel" class="tab-pane" id="tab-dmar-deleting">
+
+                      <div class="col-md-6">
+
+                        <div class="panel panel-info">
+                          <div class="panel-heading"><h3 class="panel-title">Delete Documents</h3></div>
+                          <div class="panel-body">
+
+                            <h4>Document</h4>
+
+                            <div role="tabpanel">
+
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#tab-1c" aria-controls="tab-1c" role="tab" data-toggle="tab">State</a></li>
+                                <li role="presentation"><a href="#tab-2c" aria-controls="tab-2c" role="tab" data-toggle="tab">Activity Profile</a></li>
+                                <li role="presentation"><a href="#tab-3c" aria-controls="tab-3c" role="tab" data-toggle="tab">Agent Profile</a></li>
+                              </ul>
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+
+                                <div role="tabpanel" class="tab-pane active" id="tab-1c">
+
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="delete-document-state-id">State ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="State ID" placeholder="" id="delete-document-state-id" />
+                                    </div>
+                                    
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-danger" href="#" role="button" id="delete-state">Delete State <i class="glyphicon glyphicon-remove"></i></a>
+                                  </p>
+
+                                </div><!-- tab-1b -->
+
+                                <div role="tabpanel" class="tab-pane" id="tab-2c">
+              
+                                  <div class="row">
+
+                                    <div class="form-group col-md-12">
+                                      <label class="control-label" for="delete-document-activity-profile-id">Profile ID</label>
+                                      <input type="text" class="form-control" value="" aria-describedby="Profile ID" placeholder="" id="delete-document-activity-profile-id" />
+                                    </div>
+                                    
+                                  </div><!-- .row -->
+
+                                  <p>
+                                    <a class="btn btn-danger" href="#" role="button" id="delete-activity-profile">Delete Activity Profile <i class="glyphicon glyphicon-remove"></i></a>
+                                  </p>
+
+                                </div><!-- tab-2b -->
+
+                                <div role="tabpanel" class="tab-pane" id="tab-3c">
+                            
+                                <div class="row">
+
+                                  <div class="form-group col-md-12">
+                                    <label class="control-label" for="delete-document-agent-profile-id">Profile ID</label>
+                                    <input type="text" class="form-control" value="" aria-describedby="Profile ID" placeholder="" id="delete-document-agent-profile-id" />
+                                  </div>
+                                  
+                                </div><!-- .row -->
+
+                                <p>
+                                  <a class="btn btn-danger" href="#" role="button" id="delete-agent-profile">Delete Agent Profile <i class="glyphicon glyphicon-remove"></i></a>
+                                </p>
+
+                                </div><!-- tab-3b -->
+                              
+                              </div><!-- .tab-content -->
+                              
+                            </div><!-- tab-panel -->
+
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel -->
+
+                      </div><!-- .col-md-6 -->
+                      <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title">Documents Deleted from the LRS</h3></div>
+                          <div class="panel-body">
+
+                            <div>
+                              <div id="deleted-documents"></div>
+                            </div>
+
+                            <div class="pull-right">
+                              <a class="btn btn-default" href="#" role="button" id="clear-deleted-documents">Clear Documents <i class="glyphicon glyphicon-remove-sign"></i></a>
+                            </div>
+                        
+                          </div><!-- .panel-body -->
+                        </div><!-- .panel -->
+
+                      </div><!-- .col-md-6 -->
+
+                    </div><!-- #tab-dmar-deleting -->
+
+                  </div><!-- .tab-content -->
+
+                </div><!-- tabpanel -->
+
+              </div><!-- .row -->
+    
+            </form><!-- #dmar-values -->
+    
+          </div><!-- .panel-body -->
+        </div><!-- #damar -->
+      </div><!-- .panel -->
+
+
+      <div class="panel panel-primary">
+        <div class="panel-heading collapser">
+          <h4 class="panel-title"><a data-toggle="collapse" data-target="#auth" href="#auth" class="collapsed">LRS Basic Auth Setup</a></h4>
+        </div>
+        <div id="auth" class="panel-collapse collapse">
+          <div class="panel-body">
+
+            <div class="row">
+
+              <form id="endpoint-values">
+
+                <div class="form-group col-md-4">
+                  <label class="control-label" for="endpoint">Endpoint</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                    <input type="url" class="form-control" value="https://lrs.adlnet.gov/xapi/" aria-describedby="LRS Endpoint" id="endpoint" required />
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label class="control-label" for="username">Username</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" value="xapi-tools" aria-describedby="Username" id="username" required />
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label class="control-label" for="password">Password</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" value="xapi-tools" aria-describedby="Password" id="password" required />
+                  </div>
+                </div>
+
+              </form><!-- #endpoint-values -->
+
+            </div><!-- .row -->
+
+          </div><!-- .panel-body -->
+        </div><!-- .panel-collapse -->
+      </div><!-- .panel -->
+
+      <h3 class="hide text-info">About</h3>
+      <div class="hide alert alert-info">
+        <p>This tool helps generate valid statements and demonstrates various interactions with an LRS. xAPI Lab is free and open-source, check it out <a href="https://github.com/adlnet/xapi-lab" target="_blank">on github</a>.</p>
+        <p>It is recommended that you use the <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md" target="_blank">xAPI Specification</a> as a reference when using this tool.</p>
+        <p>View statements sent to the ADL LRS with <a href="http://adlnet.github.io/xapi-statement-viewer" target="_blank" class="statement-viewer">xAPI Statement Viewer</a></p>
+        <p><small><b>xapi-lab git @ master</b></small></p>
+      </div>
+      
+      <nav class="hide">
+        <ul class="pager">
+          <li><iframe src="https://ghbtns.com/github-btn.html?user=adlnet&repo=xapi-lab&type=fork&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe></li>
+          <li><iframe src="https://ghbtns.com/github-btn.html?user=adlnet&repo=xapi-lab&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe></li>
+        </ul>
+      </nav>
+
+    </section><!-- /.container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <!-- xAPI Scripts -->
+<!--    <script type="text/javascript" src="js/lib/xapiwrapper.min.js"></script>-->
+    <script type="text/javascript" src="js/lib/cryptojs_v3.1.2.js"></script>
+    <script type="text/javascript" src="js/lib/nato-verbs.js"></script>
+    <script type="text/javascript" src="js/lib/xapi-util.js"></script>
+    <script type="text/javascript" src="js/lib/xapistatement.js"></script>
+<!--    <script type="text/javascript" src="js/lib/xapi-launch.js"></script>-->
+    <script type="text/javascript" src="js/lib/xapiwrapper.js"></script>
+
+    <!-- Editor -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" charset="utf-8"></script>
+
+    <!-- Pretty Print -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+
+    <!-- Date Picker -->
+    <script type="text/javascript" src="js/lib/moment.min.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Notifications -->
+    <script type="text/javascript" src="js/lib/bootstrap-notify.min.js"></script>
+    
+    <!-- Form Validation -->
+    <script type="text/javascript" src="js/lib/validator.min.js"></script>
+
+    <!-- Custom Chart Functions -->
+    <script type="text/javascript" src="chartist/chartist.min.js"></script>
+    <script type="text/javascript" src="js/charts.js"></script>
+      
+    <!-- Custom Statement Functions -->
+    <script type="text/javascript" src="js/statements.js"></script>
+      
+  </body>
+</html>
