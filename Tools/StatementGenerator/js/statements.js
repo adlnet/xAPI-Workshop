@@ -352,18 +352,19 @@ var contextQuizParent =  {
         }
       ],
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+            "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
+
       ]
     };
 
@@ -392,18 +393,18 @@ var contextVideoParent =  {
         }
       ],
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+            "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
       ]
     };
 
@@ -432,18 +433,18 @@ var contextStepsParent =  {
         }
       ],
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+          "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
       ]
     };
 
@@ -472,18 +473,18 @@ var contextIngredientsParent =  {
         }
       ],
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+            "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
       ]
     };
 
@@ -512,18 +513,18 @@ var contextIntroParent =  {
         }
       ],
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+            "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
       ]
     };
 
@@ -543,40 +544,40 @@ var contextCourseParent =  {
         }
       ],
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+            "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
       ]
     };
 
-  var contextNatoGrouping =  {
+  var contextGrouping =  {
       "grouping": [
-        {
-          "definition": {
-            "name": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            },
-            "description": {
-              "en-US": "NATO E-Learning Forum xAPI Workshop"
-            }
-          },
-          "id": "http://adlnet.gov/xapi/workshops/2016/natoelearningforum/",
-          "objectType": "Activity"
-        }
+        { 
+            "definition": {
+                "name": {
+                    "en-US": "TECOM Workshop"
+                },
+                "description": {
+                    "en-US": "TECOM Workshop happening Nov 2016"
+                }
+            },
+            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "objectType": "Activity"
+        }
       ]
     };
 
 
-var natoActivities = [
+var activities = [
     {
         "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/", 
         "description": "How to Make French Toast xapi-jqm Course Demo"
@@ -834,101 +835,101 @@ $("#object-type-list").change(function() {
     //alert(objectType);
     switch(objectType){
         case "course":
-            $("#object-activity-name").val(natoActivities[0].id);
-            $("#object-activity-description").val(natoActivities[0].description);
+            $("#object-activity-name").val(activities[0].id);
+            $("#object-activity-description").val(activities[0].description);
             break;
         case "toc":
-            $("#object-activity-name").val(natoActivities[1].id);
-            $("#object-activity-description").val(natoActivities[1].description);
+            $("#object-activity-name").val(activities[1].id);
+            $("#object-activity-description").val(activities[1].description);
             break;
         case "intro":
-            $("#object-activity-name").val(natoActivities[2].id);
-            $("#object-activity-description").val(natoActivities[2].description);
+            $("#object-activity-name").val(activities[2].id);
+            $("#object-activity-description").val(activities[2].description);
             break;
         case "intro1":
-            $("#object-activity-name").val(natoActivities[3].id);
-            $("#object-activity-description").val(natoActivities[3].description);
+            $("#object-activity-name").val(activities[3].id);
+            $("#object-activity-description").val(activities[3].description);
             break;
         case "ingredients":
-            $("#object-activity-name").val(natoActivities[4].id);
-            $("#object-activity-description").val(natoActivities[4].description);
+            $("#object-activity-name").val(activities[4].id);
+            $("#object-activity-description").val(activities[4].description);
             break;
         case "ingredients1":
-            $("#object-activity-name").val(natoActivities[5].id);
-            $("#object-activity-description").val(natoActivities[5].description);
+            $("#object-activity-name").val(activities[5].id);
+            $("#object-activity-description").val(activities[5].description);
             break;
         case "ingredients2":
-            $("#object-activity-name").val(natoActivities[6].id);
-            $("#object-activity-description").val(natoActivities[6].description);
+            $("#object-activity-name").val(activities[6].id);
+            $("#object-activity-description").val(activities[6].description);
             break;
         case "steps":
-            $("#object-activity-name").val(natoActivities[7].id);
-            $("#object-activity-description").val(natoActivities[7].description);
+            $("#object-activity-name").val(activities[7].id);
+            $("#object-activity-description").val(activities[7].description);
             break;
         case "steps1":
-            $("#object-activity-name").val(natoActivities[8].id);
-            $("#object-activity-description").val(natoActivities[8].description);
+            $("#object-activity-name").val(activities[8].id);
+            $("#object-activity-description").val(activities[8].description);
             break;
         case "steps2":
-            $("#object-activity-name").val(natoActivities[9].id);
-            $("#object-activity-description").val(natoActivities[9].description);
+            $("#object-activity-name").val(activities[9].id);
+            $("#object-activity-description").val(activities[9].description);
             break;
         case "steps3":
-            $("#object-activity-name").val(natoActivities[10].id);
-            $("#object-activity-description").val(natoActivities[10].description);
+            $("#object-activity-name").val(activities[10].id);
+            $("#object-activity-description").val(activities[10].description);
             break;
         case "steps4":
-            $("#object-activity-name").val(natoActivities[11].id);
-            $("#object-activity-description").val(natoActivities[11].description);
+            $("#object-activity-name").val(activities[11].id);
+            $("#object-activity-description").val(activities[11].description);
             break;
         case "steps5":
-            $("#object-activity-name").val(natoActivities[12].id);
-            $("#object-activity-description").val(natoActivities[12].description);
+            $("#object-activity-name").val(activities[12].id);
+            $("#object-activity-description").val(activities[12].description);
             break;
         case "steps6":
-            $("#object-activity-name").val(natoActivities[13].id);
-            $("#object-activity-description").val(natoActivities[13].description);
+            $("#object-activity-name").val(activities[13].id);
+            $("#object-activity-description").val(activities[13].description);
             break;
         case "steps7":
-            $("#object-activity-name").val(natoActivities[14].id);
-            $("#object-activity-description").val(natoActivities[14].description);
+            $("#object-activity-name").val(activities[14].id);
+            $("#object-activity-description").val(activities[14].description);
             break;
         case "steps8":
-            $("#object-activity-name").val(natoActivities[15].id);
-            $("#object-activity-description").val(natoActivities[15].description);
+            $("#object-activity-name").val(activities[15].id);
+            $("#object-activity-description").val(activities[15].description);
             break;
         case "steps9":
-            $("#object-activity-name").val(natoActivities[16].id);
-            $("#object-activity-description").val(natoActivities[16].description);
+            $("#object-activity-name").val(activities[16].id);
+            $("#object-activity-description").val(activities[16].description);
             break;
         case "videomodule":
-            $("#object-activity-name").val(natoActivities[17].id);
-            $("#object-activity-description").val(natoActivities[17].description);
+            $("#object-activity-name").val(activities[17].id);
+            $("#object-activity-description").val(activities[17].description);
             break;
         case "video":
-            $("#object-activity-name").val(natoActivities[18].id);
-            $("#object-activity-description").val(natoActivities[18].description);
+            $("#object-activity-name").val(activities[18].id);
+            $("#object-activity-description").val(activities[18].description);
             break;
         case "quiz":
-            $("#object-activity-name").val(natoActivities[19].id);
-            $("#object-activity-description").val(natoActivities[19].description);
+            $("#object-activity-name").val(activities[19].id);
+            $("#object-activity-description").val(activities[19].description);
             break;
         case "quiz1":
-            $("#object-activity-name").val(natoActivities[20].id);
-            $("#object-activity-description").val(natoActivities[20].description);
+            $("#object-activity-name").val(activities[20].id);
+            $("#object-activity-description").val(activities[20].description);
             break;
         case "quiz2":
-            $("#object-activity-name").val(natoActivities[21].id);
-            $("#object-activity-description").val(natoActivities[21].description);
+            $("#object-activity-name").val(activities[21].id);
+            $("#object-activity-description").val(activities[21].description);
             break;
         case "quiz3":
-            $("#object-activity-name").val(natoActivities[22].id);
-            $("#object-activity-description").val(natoActivities[22].description);
+            $("#object-activity-name").val(activities[22].id);
+            $("#object-activity-description").val(activities[22].description);
             break;
             
         default:
-            $("#object-activity-name").val(natoActivities[0].id);
-            $("#object-activity-description").val(natoActivities[0].description);
+            $("#object-activity-name").val(activities[0].id);
+            $("#object-activity-description").val(activities[0].description);
             break;
     }
    
@@ -1097,51 +1098,44 @@ $("#context-context-activities-example").click(function(e) {
     e.preventDefault();
 });
 
-$("#context-nato-grouping").click(function(e) {
-    $("#context-context-activities").val(JSON.stringify(contextNatoGrouping, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
+$("#context-grouping").click(function(e) {
+    $("#context-context-activities").val(JSON.stringify(contextGrouping, undefined, 4));
     considerPreviewStatement();
     e.preventDefault();
 });
 
 $("#context-course-parent").click(function(e) {
     $("#context-context-activities").val(JSON.stringify(contextCourseParent, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
     considerPreviewStatement();
     e.preventDefault();
 });
 
 $("#context-intro-parent").click(function(e) {
     $("#context-context-activities").val(JSON.stringify(contextIntroParent, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
     considerPreviewStatement();
     e.preventDefault();
 });
 
 $("#context-ingredients-parent").click(function(e) {
     $("#context-context-activities").val(JSON.stringify(contextIngredientsParent, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
     considerPreviewStatement();
     e.preventDefault();
 });
 
 $("#context-steps-parent").click(function(e) {
     $("#context-context-activities").val(JSON.stringify(contextStepsParent, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
     considerPreviewStatement();
     e.preventDefault();
 });
 
 $("#context-video-parent").click(function(e) {
     $("#context-context-activities").val(JSON.stringify(contextVideoParent, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
     considerPreviewStatement();
     e.preventDefault();
 });
 
 $("#context-quiz-parent").click(function(e) {
     $("#context-context-activities").val(JSON.stringify(contextQuizParent, undefined, 4));
-    //contextContextActivities = $("#context-nato-grouping").val();
     considerPreviewStatement();
     e.preventDefault();
 });

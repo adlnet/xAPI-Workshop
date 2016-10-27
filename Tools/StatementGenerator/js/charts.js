@@ -80,7 +80,7 @@ xapicharts = function(){
     
    // function that shows a dual series bar chart
     var showDualSeriesBarChart = function(labels, values1, values2, htmlControlId){   
- console.log("dual");
+ 
         var data = {
           // A labels array that can contain any sort of values
           labels: labels,
