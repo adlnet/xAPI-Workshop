@@ -27,7 +27,7 @@ xAPI and LRS Resources
 * [Choosing an LRS](https://www.adlnet.gov/using-xapi-need-help-choosing-an-lrs/)
 
 
-Thinking About Data
+## Thinking About Data
 
 * [Understanding an xAPI Statement Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/Understanding%20a%20statement.pptx)
 * [How to Make French Toast Course](http://adlnet.github.io/xapi-jqm/demos/course/chapters/00-account.html#login)
