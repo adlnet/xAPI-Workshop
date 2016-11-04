@@ -16,7 +16,7 @@ ADL Prototype LRS
 * [ADL LRS (Hosted)](https://lrs.adlnet.gov/)
 * [ADL LRS (Codebase)](https://github.com/adlnet/ADL_LRS)
 
-ADL Github Open Source Projets
+ADL Github Open Source Projects
 
 * [ADL on Github](https://github.com/adlnet)
 * [ADL on Github.io](http://adlnet.github.io/)
