@@ -45,7 +45,7 @@ xAPI and LRS Resources
 ## Using xAPI Launch
 
 * [Using xAPI Launch Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/Using%20xAPI%20Launch(embed%20video).pptx)
-* [xAPI Launch (Prototype Server)](http://launch.adlnet.gov/)
+* [xAPI Launch (Prototype Server 50.19.169.244)](http://launch.adlnet.gov/)
 * [xAPI Launch (Codebase)](https://github.com/adlnet/xapi-launch)
 
 ## Creating xAPI Web-Based Content
