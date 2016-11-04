@@ -4,7 +4,7 @@ The following file contains links to resources used or referenced in many xAPI w
 
 ## xAPI Introduction and Overview
 
-* [xAPI Overview, Policy and Conformance Testing Slides]()
+* [xAPI Overview, Policy and Conformance Testing Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/xAPI%20Overview%20and%20Policy%20and%20Conformance%20Testing.pptx)
 * [xAPI Resources on ADLNet.gov](http://xapi.adlnet.gov)
 * [DoDI 1322.26 (Current Version)](http://www.dtic.mil/whs/directives/corres/pdf/132226p.pdf)
 * [Total Learning Architecture on ADLNet.gov](http://www.adlnet.gov/tla/)
@@ -29,14 +29,14 @@ xAPI and LRS Resources
 
 Thinking About Data
 
-* [Understanding an xAPI Statement Slides]()
+* [Understanding an xAPI Statement Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/Understanding%20a%20statement.pptx)
 * [How to Make French Toast Course](http://adlnet.github.io/xapi-jqm/demos/course/chapters/00-account.html#login)
 * [Creating Your First Statements Tool](https://adlnet.github.io/xAPI-Workshop/Tools/StatementGenerator/)
 * [Statement Viewer Tool](http://adlnet.github.io/xapi-statement-viewer/)
 
 ## Understanding xAPI Profiles
 
-* [Understanding xAPI Profiles Slides]()
+* [Understanding xAPI Profiles Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/Understanding%20xAPI%20Profiles%20.pptx)
 * [xAPI SCORM Profile Specification](https://github.com/adlnet/xAPI-SCORM-Profile/blob/master/xapi-scorm-profile.md)
 * [cmi5 Profile Specification](https://github.com/AICC/CMI-5_Spec_Current)
 * [Profile CoPs on ADLNet](https://www.adlnet.gov/adl-collaboration/xapi-community-of-practice/)
@@ -44,7 +44,7 @@ Thinking About Data
 
 ## Using xAPI Launch
 
-* [Using xAPI Slides]()
+* [Using xAPI Launch Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/Using%20xAPI%20Launch(embed%20video).pptx)
 * [xAPI Launch (Prototype Server)](http://launch.adlnet.gov/)
 * [xAPI Launch (Codebase)](https://github.com/adlnet/xapi-launch)
 
