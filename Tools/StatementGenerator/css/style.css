@@ -10,6 +10,11 @@ textarea.form-control {
     display:none;
 }
 
+#graphscontainer{
+   /* visibility: hidden; */
+    display:none;
+}
+
 .page-header i {
   color: #94D5F5;
   text-shadow: 1px 1px 1px #ccc;
@@ -73,4 +78,48 @@ pre.prettyprint {
 }
 #console-history .alert small {
   opacity: 0.5;
+}
+
+svg
+{
+    width: 600px;
+    height: 400px;
+}
+
+.shadow
+{
+    border: 1px solid #DDD;
+    border-spacing: 3px;
+    -webkit-box-shadow: 5px 5px 20px #AAA;
+       -moz-box-shadow: 5px 5px 20px #AAA;
+            box-shadow: 5px 5px 20px #AAA;
+
+}
+
+.bar,
+.circle
+{
+    padding-top: 20px;
+    padding-right: 20px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    width: 650px;
+    height: 450px;
+}
+
+.graphrow {
+    margin-left: 15px;
+    margin-bottom: 15px;  
+}
+
+.bar svg
+{
+    padding-top: 15px;
+}
+
+.bar div.nvtooltip { margin-top: 30px; }
+
+.graphcontainer
+{
+    display: flex;
 }
