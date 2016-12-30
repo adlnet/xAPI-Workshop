@@ -7,16 +7,7 @@ var moduleNames;
 function drawLineChart(){
     d3.select('svg').empty();
     var statements = lineDash.data.where(
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/01-intro"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/02-ingredients"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/03-steps"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/04-video"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz"'
-    );
+        'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz))$/');
     lineDash.data = statements;
     var data = formatData(lineDash.data);
     xData = data[0];
@@ -27,23 +18,18 @@ function drawLineChart(){
 function drawBarChart(){
     d3.select('svg').empty();
     var statements = barDash.data.where(
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/01-intro"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/02-ingredients"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/03-steps"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/04-video"'+
-        ' or '+
-        'object.id = "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz"'
-    );
+        'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz))$/');
     barDash.data = statements;    
     graphBarModules();
 }
 
 function drawMultiBarChart(){
     d3.select('svg').empty();
-    // graphMultiBarModules();
+    var statements = multiBarDash.data.where(
+        'verb.id = /(launched|read)$/ and (' +
+        'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz)(\/{0,1})(.*))$/)');
+    multiBarDash.data = statements;
+    graphMultiBarModules();
 }
 
 var graphLineModules = (function() {
@@ -106,13 +92,11 @@ function graphBarModules() {
 
 function graphMultiBarModules() {
     var modules = multiBarDash.createMultiBarChart({
-        pre: function(data){
-            return data.where("verb.id = '" + ADL.verbs.launched.id + "' or verb.id = '" + ADL.verbs.read.id + "'").orderBy('object.id');
-        },
         container: '#multibarchart',
         groupBy: 'object.id',
+        innerGroupBy: 'verb.id',
         rangeLabel: 'data.0.object.definition.name.en-US',
-        aggregate: ADL.multiAggregate('verb.id', ADL.count),
+        aggregate:ADL.multiAggregate(ADL.count('verb.id')),
         customize: function (chart) {
             chart.xAxis.rotateLabels(45);
         },
@@ -137,7 +121,6 @@ $(document).ready(function() {
             console.log("--- content not launched via xAPI Launch ---\n", ADL.XAPIWrapper.lrs);
         }
     }, true);
-    $("#graphcontainer").hide();
 });
 
 $( "#load-graphs" ).click(function() {
