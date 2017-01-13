@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" type="text/css" href="css/animate.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="chartist/chartist.min.css">
+    <link rel="stylesheet" href="js/lib/nvd3/build/nv.d3.min.css"></link>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -52,7 +52,6 @@
               <!-- Nav tabs -->
               <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#tab-smar-sending" aria-controls="tab-smar-sending" role="tab" data-toggle="tab">Sending</a></li>
-<!--                <li role="presentation"><a href="#tab-smar-receiving" aria-controls="tab-smar-receiving" role="tab" data-toggle="tab">Receiving</a></li>-->
                 <li role="presentation"><a href="#tab-smar-graphs" aria-controls="tab-smar-graphs" role="tab" data-toggle="tab">Graphs</a></li>
               </ul>
               
@@ -81,20 +80,6 @@
                                   <div class="panel panel-info">
                                     <div class="panel-heading"><h3 class="panel-title">Actor <span class="pull-right"><a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#actor" target="_blank"><i class="fa fa-question-circle"></i></a></span></h3></div>
                                     <div class="panel-body">
-
-<!--
-                                      <div class="row">
-
-                                        <div class="form-group col-md-5">
-                                          <label class="control-label" for="actor-type">Actor Type</label>
-                                          <select class="form-control" name="actor-type" id="actor-type">
-                                            <option value="Agent">Agent</option>
-                                            <option value="Group">Group</option>
-                                          </select>
-                                          <div class="help-block"></div>
-                                        </div>
-                                      </div>
--->
                                      <!-- .row -->
 
                                       <div id="actor-types">
@@ -105,7 +90,6 @@
 
                                             <div class="col-md-6 ifi">
                                               
-<!--                                              <h4 class="text-info">Use Only One <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#inversefunctional" target="_blank" title="Inverse Functional Identifier">IFI</a> Below:</h4>-->
 
                                               <div class="form-group">
                                                 <label class="control-label" for="actor-agent-email">Email</label>
@@ -1019,24 +1003,37 @@
                       
                       <div class="page-header">
                         <h3 class="text-muted">Example Charts using data from a Learning Record Store (LRS)</h3>
+                        <a class="btn btn-primary" href="#" role="button" id="load-graphs">Load Graphs</a>
                       </div>
-
-                      <p>
-                        <a class="btn btn-primary" href="#" role="button" id="load-graphs">Load Graphs <i class="glyphicon glyphicon-repeat"></i></a>                   
-                      </p>
-
-                      <!-- module launches chart - line -->
-                      <h4 class="panel-title" style="display:none;" id="module-launch-chart-line-label">Number of Launches per Module - Line</h4>
-                      <div class="ct-chart" id="module-launch-chart-line"></div>
-
-                     <!-- module launches chart - pie -->
-                      <h4 class="panel-title" style="display:none;"  id="module-launch-chart-bar-label">Number of Launches per Module - Bar</h4>
-                      <div class="ct-chart" id="module-launch-chart-bar"></div>
-
-                      <!-- module launches compared with page reads - dual series bar -->
-                      <h4 class="panel-title" style="display:none;"  id="page-read-dual-chart-bar-label">Number of Launches Compared to Page Reads - Dual Series Bar</h4>
-                      <div class="ct-chart" id="page-read-dual-chart-bar"></div>
-                        
+                      <div id="graphscontainer">
+                        <div class="row graphrow">
+                            <!-- module launches chart - line -->
+                            <h4 class="panel-title" id="module-launch-chart-line-label">Number of Launches per Module - Line</h4>
+                            <div class="graphcontainer">
+                                <div class="shadow bar">
+                                    <svg id="linechart"></svg>
+                                </div>
+                            </div>       
+                        </div>
+                        <div class="row graphrow">
+                           <!-- module launches chart - pie -->
+                            <h4 class="panel-title" id="module-launch-chart-bar-label">Number of Launches per Module - Bar</h4>
+                            <div class="graphcontainer">
+                                <div class="shadow bar">
+                                    <svg id="barchart"></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row graphrow">
+                            <!-- module launches compared with page reads - dual series bar -->
+                            <h4 class="panel-title" id="page-read-dual-chart-bar-label">Number of Launches Compared to Page Reads - Dual Series Bar</h4>
+                            <div class="graphcontainer">
+                                <div class="shadow bar">
+                                    <svg id="multibarchart"></svg>
+                                </div>
+                            </div>
+                        </div>
+                      </div>  
                     </div>
                       
                   </div> <!-- tab-smar-graphs -->
@@ -1212,23 +1209,6 @@
                         
                           </div><!-- .panel-body -->
                         </div><!-- .panel -->
-
-  <!--
-                        <div class="panel panel-default">
-                          <div class="panel-heading"><h3 class="panel-title">Documents Updated in the LRS</h3></div>
-                          <div class="panel-body">
-
-                            <div>
-                              <div id="updated-documents"></div>
-                            </div>
-
-                            <div class="pull-right">
-                              <a class="btn btn-default" href="#" role="button" id="clear-updated-documents">Clear Documents <i class="glyphicon glyphicon-remove-sign"></i></a>
-                            </div>
-                        
-                          </div><!-- .panel-body -->
-  <!--                      </div><!-- .panel -->
-
                       </div><!-- .col-md-6 -->
 
                     </div><!-- #tab-dmar-sending -->
@@ -1495,6 +1475,8 @@
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                     <input type="password" class="form-control" value="xapi-tools" aria-describedby="Password" id="password" required />
                   </div>
+                  <br>
+                  <a class="btn btn-primary" href="#" role="button" id="update-auth">Update Auth</a>
                 </div>
 
               </form><!-- #endpoint-values -->
@@ -1526,15 +1508,6 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-    <!-- xAPI Scripts -->
-<!--    <script type="text/javascript" src="js/lib/xapiwrapper.min.js"></script>-->
-    <script type="text/javascript" src="js/lib/cryptojs_v3.1.2.js"></script>
-    <script type="text/javascript" src="js/lib/workshop-verbs.js"></script>
-    <script type="text/javascript" src="js/lib/xapi-util.js"></script>
-    <script type="text/javascript" src="js/lib/xapistatement.js"></script>
-<!--    <script type="text/javascript" src="js/lib/xapi-launch.js"></script>-->
-    <script type="text/javascript" src="js/lib/xapiwrapper.js"></script>
-
     <!-- Editor -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" charset="utf-8"></script>
 
@@ -1551,12 +1524,21 @@
     <!-- Form Validation -->
     <script type="text/javascript" src="js/lib/validator.min.js"></script>
 
-    <!-- Custom Chart Functions -->
-    <script type="text/javascript" src="chartist/chartist.min.js"></script>
+    <!-- xapi Dashboard --> 
+    <script type="text/javascript" src="./js/lib/d3/d3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/lib/nvd3/build/nv.d3.min.js"></script>
+    <script type="text/javascript" src="./js/lib/xAPI-Dashboard-development/src/chart.js"></script>
+    <script type="text/javascript" src="./js/lib/xAPI-Dashboard-development/src/dashboard.js"></script>
+    <script type="text/javascript" src="./js/lib/xAPI-Dashboard-development/src/xapicollection.js"></script>
+
+    <!-- xAPI Scripts -->
+    <script type="text/javascript" src="js/lib/xapiwrapper.min.js"></script>
+    <script type="text/javascript" src="js/lib/workshop-verbs.js"></script>
+
+    <!-- Draw xapi Dashboard Charts -->
     <script type="text/javascript" src="js/charts.js"></script>
-      
+
     <!-- Custom Statement Functions -->
-    <script type="text/javascript" src="js/statements.js"></script>
-      
+    <script type="text/javascript" src="js/statements.js"></script>  
   </body>
 </html>
