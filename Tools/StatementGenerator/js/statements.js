@@ -562,15 +562,7 @@ var contextCourseParent =  {
   var contextGrouping =  {
       "grouping": [
         { 
-            "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
+            "id": localStorage.getItem("baseURI"),
             "objectType": "Activity"
         }
       ]
@@ -748,6 +740,10 @@ $(".panel-heading.collapser a:not([data-toggle='collapse'])").on("click", functi
 
 $("#statement-builder-values").change(function() {
     considerPreviewStatement();
+});
+
+$( "#update-auth" ).click(function() {
+  setupConfig();  
 });
 
 $("#actor-Agent :input").on('keyup cut', function(e){
@@ -1270,13 +1266,13 @@ $("#clear-deleted-documents").click(function(e) {
     e.preventDefault();
 });
 
-/*  Graphs, loading data etc */
-$("#load-graphs").click(function(e) {
-    // call from other js library, charts.js
-    xapicharts.showCharts();
+// /*  Graphs, loading data etc */
+// $("#load-graphs").click(function(e) {
+//     // call from other js library, charts.js
+//     xapicharts.showCharts();
     
-    e.preventDefault();
-});
+//     e.preventDefault();
+// });
 
 
 /* Endpoint */
@@ -1624,7 +1620,6 @@ function considerPreviewStatement() {
 
 // Send statement to the LRS
 function sendStatement() {
-    setupConfig();
 
     var stmt = editor.getValue(); // or session.getValue
 
@@ -1670,7 +1665,6 @@ function queueStatement(stmt) {
 
 // Send statements from Queue to LRS
 function sendStatementQueue() {
-    setupConfig();
 
     //var xstmts = $.parseJSON(stmts);
 
@@ -1720,7 +1714,6 @@ function styleStatementsView(id, stmts) {
 
 // Retreive statements from the LRS
 function getStatementsWithSearch() {
-    setupConfig();
 
     var verbSort = $("#search-verb-sort").val();
     var verbId = $("#search-user-verb-id").val();
@@ -1793,7 +1786,6 @@ function clearReceivedStatements() {
 
 // Send State to the LRS
 function sendState() {
-    setupConfig();
 
     var activityId = $("#document-activity-id").val();
     var actorEmail = $("#document-actor-email").val(); // TODO: Agent
@@ -1820,7 +1812,7 @@ function sendState() {
 
 // Sent Activity Profile to the LRS
 function sendActivityProfile() {
-    setupConfig();
+    
 
     var activityId = $("#document-activity-id").val();
     var profileId = $("#set-document-activity-profile-id").val();
@@ -1845,7 +1837,7 @@ function sendActivityProfile() {
 
 // Sent Activity Profile to the LRS
 function sendAgentProfile() {
-    setupConfig();
+    
 
     var actorEmail = $("#document-actor-email").val(); // TODO: Agent
     var profileId = $("#set-document-agent-profile-id").val();
@@ -1878,7 +1870,7 @@ function clearSentDocuments() {
 
 // Get State from the LRS
 function getState() {
-    setupConfig();
+    
 
     var activityId = $("#document-activity-id").val();
     var actorEmail = $("#document-actor-email").val(); // TODO: Agent
@@ -1909,7 +1901,7 @@ function getState() {
 
 // Get Activity Profile from the LRS
 function getActivityProfile() {
-    setupConfig();
+    
 
     var activityId = $("#document-activity-id").val();
     var profileId = $("#get-document-activity-profile-id").val();
@@ -1938,7 +1930,7 @@ function getActivityProfile() {
 
 // Get Agent Profile from the LRS
 function getAgentProfile() {
-    setupConfig();
+    
 
     var actorEmail = $("#document-actor-email").val(); // TODO: Agent
     var profileId = $("#get-document-agent-profile-id").val();
@@ -1981,7 +1973,7 @@ function clearReceivedDocuments() {
 
 // Delete State from the LRS
 function deleteState() {
-    setupConfig();
+    
 
     var activityId = $("#document-activity-id").val();
     var actorEmail = $("#document-actor-email").val(); // TODO: Agent
@@ -2002,7 +1994,7 @@ function deleteState() {
 
 // Delete Activity Profile from the LRS
 function deleteActivityProfile() {
-    setupConfig();
+    
 
     var activityId = $("#document-activity-id").val();
     var profileId = $("#delete-document-activity-profile-id").val();
@@ -2021,7 +2013,7 @@ function deleteActivityProfile() {
 
 // Delete Agent Profile from the LRS
 function deleteAgentProfile() {
-    setupConfig();
+    
 
     var actorEmail = $("#document-actor-email").val(); // TODO: Agent
     var profileId = $("#delete-document-agent-profile-id").val();
