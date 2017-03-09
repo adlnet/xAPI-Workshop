@@ -54,7 +54,7 @@ xAPI and LRS Resources
 
 ## Creating xAPI Content Using Existing SCORM Courses
 
-* [xAPI and SCORM Presentation](https://github.com/adlnet/Starting-from-SCORM-A-Developers-Guide)
+* [xAPI and SCORM Presentation](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/xAPI%20and%20SCORM.pptx)
 * [Step by Step Tutorial](https://github.com/adlnet/Starting-from-SCORM-A-Developers-Guide)
 
 ## Using the xAPI Dashboard Sample Application to Build Graphs and Charts
