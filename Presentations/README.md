@@ -4,7 +4,7 @@ The following file contains links to resources used or referenced in many xAPI w
 
 ## xAPI Introduction and Overview
 
-* [xAPI Overview, Policy and Conformance Testing Slides](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/xAPI%20Overview%20and%20Policy%20and%20Conformance%20Testing.pptx)
+* [xAPI Overview](https://github.com/adlnet/xAPI-Workshop/raw/master/Presentations/xAPI%20Overview%20and%20Policy%20and%20Conformance%20Testing.pptx)
 * [xAPI Resources on ADLNet.gov](http://xapi.adlnet.gov)
 * [DoDI 1322.26 (Current Version)](http://www.dtic.mil/whs/directives/corres/pdf/132226p.pdf)
 * [Total Learning Architecture on ADLNet.gov](http://www.adlnet.gov/tla/)
@@ -54,6 +54,7 @@ xAPI and LRS Resources
 
 ## Creating xAPI Content Using Existing SCORM Courses
 
+* [xAPI and SCORM Presentation](https://github.com/adlnet/Starting-from-SCORM-A-Developers-Guide)
 * [Step by Step Tutorial](https://github.com/adlnet/Starting-from-SCORM-A-Developers-Guide)
 
 ## Using the xAPI Dashboard Sample Application to Build Graphs and Charts
