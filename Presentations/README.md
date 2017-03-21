@@ -51,6 +51,7 @@ xAPI and LRS Resources
 ## Creating xAPI Web-Based Content
 
 * [Step by Step Tutorial](https://github.com/adlnet/Intro-to-Developing-Web-based-xAPI-Content)
+* [Creating Video Experiences](https://github.com/adlnet/Intro-to-xAPI-Video-Experiences)
 
 ## Creating xAPI Content Using Existing SCORM Courses
 
