@@ -4,31 +4,34 @@ var multiBarDash;
 
 function drawLineChart(){
     d3.select('svg').empty();
-    var statements = lineDash.data.where(
+    lineDash.data.where(
         'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz))$/');
-    lineDash.data = statements;
-    var datum, moduleNames;
-    var formattedData = formatLineData(lineDash.data);
-    datum = formattedData[0];
-    moduleNames = formattedData[1];
-    graphLineModules(datum, moduleNames);
+    if (lineDash.data.contents.length > 0){
+        var datum, moduleNames;
+        var formattedData = formatLineData(lineDash.data);
+        datum = formattedData[0];
+        moduleNames = formattedData[1];
+        graphLineModules(datum, moduleNames);        
+    }
 }
 
 function drawBarChart(){
     d3.select('svg').empty();
-    var statements = barDash.data.where(
-        'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz))$/');
-    barDash.data = statements;    
-    graphBarModules();
+    barDash.data.where(
+        'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz))$/');  
+    if (barDash.data.contents.length > 0){
+        graphBarModules();
+    }
 }
 
 function drawMultiBarChart(){
     d3.select('svg').empty();
-    var statements = multiBarDash.data.where(
+    multiBarDash.data.where(
         'verb.id = /(launched|read)$/ and (' +
         'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro|02-ingredients|03-steps|04-video|05-quiz)(\/{0,1})(.*))$/)');
-    multiBarDash.data = statements;
-    graphMultiBarModules(formatMultiData(multiBarDash.data));
+    if (multiBarDash.data.contents.length > 0){
+        graphMultiBarModules(formatMultiData(multiBarDash.data));
+    }
 }
 
 var graphLineModules = (function(datum, moduleNames) {
@@ -90,7 +93,6 @@ function graphBarModules() {
 }
 
 var graphMultiBarModules = (function(datum) {
-
     var moduleNames = ['01-intro', '02-ingredients', '03-steps', '04-video', '05-quiz'];
     var mBarChart = nv.models.multiBarChart()
         .x(function(d) { return d.x; })
@@ -217,5 +219,4 @@ $( "#load-graphs" ).click(function() {
             },
             function(){drawMultiBarChart();}
     );
-  
 });
