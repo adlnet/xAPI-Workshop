@@ -104,6 +104,10 @@ var graphMultiBarModules = (function(datum) {
         .tickFormat(function(d){
             return moduleNames[d];
         })
+    mBarChart.tooltip(function (key, x, y, e, graph) {
+       return '<p><strong>' + key + '</strong></p>' +
+       '<p>' + y + ' in the month ' + x + '</p>';
+        });
 
     d3.select('#multibarchart')
         .datum(datum)
@@ -114,59 +118,120 @@ var graphMultiBarModules = (function(datum) {
     return mBarChart;
 });
 
+function calculateReadStatements(data) {
+    var introCount, ingCount, stepCount, vidCount, quizCount;
+    introCount = ingCount = stepCount = vidCount = quizCount = 0;
+    data.map(function(o, i){
+        switch (true) {
+            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro)(\/{0,1})(.*))$/.test(o.group):
+                introCount += o.data.length;
+                break;
+            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(02-ingredients)(\/{0,1})(.*))$/.test(o.group):
+                ingCount += o.data.length; 
+                break;
+            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(03-steps)(\/{0,1})(.*))$/.test(o.group):
+                stepCount += o.data.length;
+                break;
+            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(04-video)(\/{0,1})(.*))$/.test(o.group):
+                vidCount += o.data.length;
+                break;
+            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(05-quiz)(\/{0,1})(.*))$/.test(o.group):
+                quizCount += o.data.length;
+                break;
+        }
+    });
+    return [introCount, ingCount, stepCount, vidCount, quizCount];
+}
+
+function calculateLaunchStatements(data) {
+    var introCount, ingCount, stepCount, vidCount, quizCount;
+    introCount = ingCount = stepCount = vidCount = quizCount = 0;            
+    data.map(function(o, i){
+        switch (o.group){
+            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/01-intro":
+                introCount += o.data.length;
+                break;
+            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/02-ingredients":
+                ingCount += o.data.length;
+                break;
+            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/03-steps":
+                stepCount += o.data.length;
+                break;
+            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/04-video":
+                vidCount += o.data.length;
+                break;
+            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz":
+                quizCount += o.data.length;
+                break;
+        }
+    });    
+    return [introCount, ingCount, stepCount, vidCount, quizCount]; 
+}
+
 function formatMultiData(data) {
     var ret = [{key: "launched", values: []}, {key: "read", values: []}];
     var grps = data.orderBy('object.id').groupBy('verb.id').groupBy('object.id');
 
-    grps.contents[0].data.map(function(o, i){
-        var idx;
-        switch (o.group){
-            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/01-intro":
-                idx = 0;
-                break;
-            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/02-ingredients":
-                idx = 1;
-                break;
-            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/03-steps":
-                idx = 2;
-                break;
-            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/04-video":
-                idx = 3;
-                break;
-            case "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz":
-                idx = 4;
-                break;
-        }
-        ret[0].values.push({x: idx, y: o.data.length});
-    });
-    
-    var introCount, ingCount, stepCount, vidCount, quizCount;
-    introCount = ingCount = stepCount = vidCount = quizCount = 0;
-    grps.contents[1].data.map(function(o, i){
-        switch (true) {
-            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(01-intro)(\/{0,1})(.*))$/.test(o.group):
-                introCount += o.data.length;
-            break;
-            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(02-ingredients)(\/{0,1})(.*))$/.test(o.group):
-                ingCount += o.data.length; 
-            break;
-            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(03-steps)(\/{0,1})(.*))$/.test(o.group):
-                stepCount += o.data.length;
-            break;
-            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(04-video)(\/{0,1})(.*))$/.test(o.group):
-                vidCount += o.data.length;
-            break;
-            case /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/(05-quiz)(\/{0,1})(.*))$/.test(o.group):
-                quizCount += o.data.length;
-            break;
-        }
-    });
+    if (grps.contents.length == 0){
+        console.log("No data to report for multibarchart")
+    }
+    else if (grps.contents.length == 1){
+        if (grps.contents[0].group == "http://example.com/xapi/verbs/read"){
+            var counts = calculateReadStatements(grps.contents[0].data);
 
-    ret[1].values.push({x: 0, y: introCount});
-    ret[1].values.push({x: 1, y: ingCount});
-    ret[1].values.push({x: 2, y: stepCount});
-    ret[1].values.push({x: 3, y: vidCount});
-    ret[1].values.push({x: 4, y: quizCount});
+            ret[1].values.push({x: 0, y: counts[0]});
+            ret[1].values.push({x: 1, y: counts[1]});
+            ret[1].values.push({x: 2, y: counts[2]});
+            ret[1].values.push({x: 3, y: counts[3]});
+            ret[1].values.push({x: 4, y: counts[4]});
+
+        }
+        else if (grps.contents[0].group == "http://example.com/xapi/verbs/launched"){
+            var counts = calculateLaunchStatements(grps.contents[0].data);           
+
+            ret[0].values.push({x: 0, y: counts[0]});
+            ret[0].values.push({x: 1, y: counts[1]});
+            ret[0].values.push({x: 2, y: counts[2]});
+            ret[0].values.push({x: 3, y: counts[3]});
+            ret[0].values.push({x: 4, y: counts[4]});
+        }
+    }
+    else if (grps.contents.length == 2){
+        if (grps.contents[0].group == "http://example.com/xapi/verbs/read"){
+            var counts = calculateLaunchStatements(grps.contents[1].data);           
+            
+            ret[0].values.push({x: 0, y: counts[0]});
+            ret[0].values.push({x: 1, y: counts[1]});
+            ret[0].values.push({x: 2, y: counts[2]});
+            ret[0].values.push({x: 3, y: counts[3]});
+            ret[0].values.push({x: 4, y: counts[4]});
+            
+            var counts = calculateReadStatements(grps.contents[0].data);
+
+            ret[1].values.push({x: 0, y: counts[0]});
+            ret[1].values.push({x: 1, y: counts[1]});
+            ret[1].values.push({x: 2, y: counts[2]});
+            ret[1].values.push({x: 3, y: counts[3]});
+            ret[1].values.push({x: 4, y: counts[4]});
+        }
+        else{
+            var counts = calculateLaunchStatements(grps.contents[0].data);          
+            
+            ret[0].values.push({x: 0, y: counts[0]});
+            ret[0].values.push({x: 1, y: counts[1]});
+            ret[0].values.push({x: 2, y: counts[2]});
+            ret[0].values.push({x: 3, y: counts[3]});
+            ret[0].values.push({x: 4, y: counts[4]});
+            
+            var counts = calculateReadStatements(grps.contents[1].data);
+
+            ret[1].values.push({x: 0, y: counts[0]});
+            ret[1].values.push({x: 1, y: counts[1]});
+            ret[1].values.push({x: 2, y: counts[2]});
+            ret[1].values.push({x: 3, y: counts[3]});
+            ret[1].values.push({x: 4, y: counts[4]});
+        }
+    }
 
     return ret;
 }
