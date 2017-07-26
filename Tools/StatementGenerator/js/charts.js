@@ -46,6 +46,8 @@ var graphLineModules = (function(datum, moduleNames) {
         .tickFormat(function(d){
             return moduleNames[d];
         })
+    lineChart.yAxis
+        .tickFormat(d3.format("d"))
     d3.select('#linechart')
         .datum(datum)
         .call(lineChart);
@@ -86,6 +88,7 @@ function graphBarModules() {
         aggregate: ADL.count(),
         customize: function (chart) {
             chart.xAxis.rotateLabels(45);
+            chart.yAxis.tickFormat(d3.format("d"));
         },
     });
     barChart.clear();
@@ -104,6 +107,8 @@ var graphMultiBarModules = (function(datum) {
         .tickFormat(function(d){
             return moduleNames[d];
         })
+    mBarChart.yAxis
+        .tickFormat(d3.format("d"))        
     mBarChart.tooltip(function (key, x, y, e, graph) {
        return '<p><strong>' + key + '</strong></p>' +
        '<p>' + y + ' in the month ' + x + '</p>';
