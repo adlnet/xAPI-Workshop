@@ -172,6 +172,8 @@ function formatMultiData(data) {
     var ret = [{key: "launched", values: []}, {key: "read", values: []}];
     var grps = data.orderBy('object.id').groupBy('verb.id').groupBy('object.id');
 
+    // the order of the data wasn't the same each time. this checks if there's only 'read' or only
+    // 'launched' data, as well as which order they're in if both are supplied.
     if (grps.contents.length == 0){
         console.log("No data to report for multibarchart")
     }
@@ -248,7 +250,7 @@ $(document).ready(function() {
                 "auth" : "Basic " + toBase64($("#username").val() + ":" + $("#password").val()),
             };
             ADL.XAPIWrapper.changeConfig(conf);
-            localStorage.setItem("baseURI", "http://adlnet.gov/event/xapiworkshop/myworkshop");
+            localStorage.setItem("baseURI", "http://adlnet.gov/event/xapiworkshop/iFest/2017");
             console.log("--- content not launched via xAPI Launch ---\n", ADL.XAPIWrapper.lrs);
         }
     }, true);
