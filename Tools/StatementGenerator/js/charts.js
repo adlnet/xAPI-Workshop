@@ -178,7 +178,7 @@ function formatMultiData(data) {
         console.log("No data to report for multibarchart")
     }
     else if (grps.contents.length == 1){
-        if (grps.contents[0].group == "http://example.com/xapi/verbs/read"){
+        if (grps.contents[0].group == "http://adlnet.gov/expapi/verbs/read"){
             var counts = calculateReadStatements(grps.contents[0].data);
 
             ret[1].values.push({x: 0, y: counts[0]});
@@ -188,7 +188,7 @@ function formatMultiData(data) {
             ret[1].values.push({x: 4, y: counts[4]});
 
         }
-        else if (grps.contents[0].group == "http://example.com/xapi/verbs/launched"){
+        else if (grps.contents[0].group == "http://adlnet.gov/expapi/verbs/launched"){
             var counts = calculateLaunchStatements(grps.contents[0].data);           
 
             ret[0].values.push({x: 0, y: counts[0]});
@@ -199,7 +199,7 @@ function formatMultiData(data) {
         }
     }
     else if (grps.contents.length == 2){
-        if (grps.contents[0].group == "http://example.com/xapi/verbs/read"){
+        if (grps.contents[0].group == "http://adlnet.gov/expapi/verbs/read"){
             var counts = calculateLaunchStatements(grps.contents[1].data);           
             
             ret[0].values.push({x: 0, y: counts[0]});
