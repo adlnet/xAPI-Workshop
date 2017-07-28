@@ -650,15 +650,15 @@ var activities = [
         "description": "How to Make French Toast xapi-jqm Course Demo: 05-quiz"
     },
     {
-        "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/chapters/05-quiz#quiz-q1", 
+        "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz#quiz-q1", 
         "description": "How to Make French Toast xapi-jqm Course Demo: 05-quiz, page: p1"
     },
     {
-        "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/chapters/05-quiz#quiz-q2", 
+        "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz#quiz-q2", 
         "description": "How to Make French Toast xapi-jqm Course Demo: 05-quiz, page: p2"
     },
     {
-        "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/chapters/05-quiz#quiz-q3", 
+        "id": "http://adlnet.gov/xapi/samples/xapi-jqm/course/05-quiz#quiz-q3", 
         "description": "How to Make French Toast xapi-jqm Course Demo: 05-quiz, page: p3"
     }
 ];

@@ -95,6 +95,79 @@ function graphBarModules() {
     barChart.draw();
 }
 
+function getChildData(datum) {
+    if (datum.key == 'read') {
+        childBarDash.fetchAllStatements(
+                {'activity': localStorage.getItem("baseURI"),
+                 'verb': ADL.verbs.read.id,
+                 'related_activities': true
+                },
+                function(){graphChildBarModules(datum);}
+        );
+    }
+};
+
+function graphChildBarModules(datum) {
+    d3.select('svg').empty();
+    var module;
+    switch(datum.x) {
+        case 0:
+            module = "01-intro";
+            break;
+        case 1:
+            module = "02-ingredients";
+            break;
+        case 2:
+            module = "03-steps";
+            break;
+        case 3:
+            module = "04-video";
+            break;
+        case 4:
+            module = "05-quiz";
+            break;
+    }
+    document.getElementById("childModuleNumber").innerHTML = module;
+    childBarDash.data.where(
+        'object.id = /(http:\/\/adlnet\.gov\/xapi\/samples\/xapi-jqm\/course\/('+module+')(\/{0,1})(.*))$/');  
+    if (childBarDash.data.contents.length > 0){
+        var label = localStorage.getItem("baseURI") + "/label";
+        var childBarChart = childBarDash.createBarChart({
+            pre: function(data){
+                data.contents.map(function(cur, idx, arr) {
+                        if ('extensions' in cur.object.definition) {
+                            // if you 'read' the video module, it has no pages in the name
+                            if (cur.object.id.includes("04-video")){
+                                cur.object.definition.extensions[label] = "p1"    
+                            } else {
+                                cur.object.definition.extensions[label] = cur.object.definition.name['en-US'].slice(-2);
+                            }
+                        } else {
+                            cur.object.definition.extensions = {};
+                            // if you 'read' the video module, it has no pages in the name
+                            if (cur.object.id.includes("04-video")){
+                                cur.object.definition.extensions[label] = "p1"    
+                            } else {
+                                cur.object.definition.extensions[label] = cur.object.definition.name['en-US'].slice(-2);
+                            }
+                        }                        
+                    });
+                return data.orderBy('object.id');
+            },
+            container: '#childbarchart',
+            groupBy: 'object.id',
+            rangeLabel: 'data.0.object.definition.extensions[' + label + ']',
+            aggregate: ADL.count(),
+            customize: function (chart) {
+                chart.xAxis.rotateLabels(45);
+                chart.yAxis.tickFormat(d3.format("d"));
+            },
+        });
+        childBarChart.clear();
+        childBarChart.draw();        
+    }    
+}
+
 var graphMultiBarModules = (function(datum) {
     var moduleNames = ['01-intro', '02-ingredients', '03-steps', '04-video', '05-quiz'];
     var mBarChart = nv.models.multiBarChart()
@@ -108,11 +181,7 @@ var graphMultiBarModules = (function(datum) {
             return moduleNames[d];
         })
     mBarChart.yAxis
-        .tickFormat(d3.format("d"))        
-    mBarChart.tooltip(function (key, x, y, e, graph) {
-       return '<p><strong>' + key + '</strong></p>' +
-       '<p>' + y + ' in the month ' + x + '</p>';
-        });
+        .tickFormat(d3.format("d"));
 
     d3.select('#multibarchart')
         .datum(datum)
@@ -120,6 +189,10 @@ var graphMultiBarModules = (function(datum) {
         .duration(500)
         .call(mBarChart);
     nv.utils.windowResize(mBarChart.update);    
+
+    mBarChart.multibar.dispatch.on("elementClick", function(e) {
+        getChildData(e.data);
+    });
     return mBarChart;
 });
 
@@ -266,10 +339,12 @@ $( "#load-graphs" ).click(function() {
         $("#graphscontainer").show();
     }
 
-    d3.select('svg').empty();
+    d3.selectAll("svg > *").remove();
+    document.getElementById("childModuleNumber").innerHTML = "X";
     lineDash = new ADL.XAPIDashboard();
     barDash = new ADL.XAPIDashboard();
     multiBarDash = new ADL.XAPIDashboard();
+    childBarDash = new ADL.XAPIDashboard();
 
     lineDash.fetchAllStatements(
             {'activity': localStorage.getItem("baseURI"),
