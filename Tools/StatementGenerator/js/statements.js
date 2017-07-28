@@ -299,7 +299,11 @@ var contextActivitiesExample = {
       },
       "id": "http://adlnet.github.io/xapi-lab/index.html#context",
       "objectType": "Activity"
-    }
+    },
+    { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+    }    
   ],
   "parent": [
     {
@@ -352,19 +356,10 @@ var contextQuizParent =  {
         }
       ],
       "grouping": [
-        { 
-            "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
-            "objectType": "Activity"
-        }
-
+        { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+        }
       ]
     };
 
@@ -393,18 +388,10 @@ var contextVideoParent =  {
         }
       ],
       "grouping": [
-        { 
-            "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
-            "objectType": "Activity"
-        }
+         { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+        }
       ]
     };
 
@@ -433,18 +420,10 @@ var contextStepsParent =  {
         }
       ],
       "grouping": [
-        { 
-          "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
-            "objectType": "Activity"
-        }
+         { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+        }
       ]
     };
 
@@ -473,18 +452,10 @@ var contextIngredientsParent =  {
         }
       ],
       "grouping": [
-        { 
-            "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
-            "objectType": "Activity"
-        }
+         { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+        }
       ]
     };
 
@@ -513,18 +484,10 @@ var contextIntroParent =  {
         }
       ],
       "grouping": [
-        { 
-            "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
-            "objectType": "Activity"
-        }
+         { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+        }
       ]
     };
 
@@ -544,18 +507,10 @@ var contextCourseParent =  {
         }
       ],
       "grouping": [
-        { 
-            "definition": {
-                "name": {
-                    "en-US": "TECOM Workshop"
-                },
-                "description": {
-                    "en-US": "TECOM Workshop happening Nov 2016"
-                }
-            },
-            "id": "http://adlnet.gov/event/xapiworkshop/tecom",
-            "objectType": "Activity"
-        }
+        { 
+           "id": localStorage.getItem("baseURI"),
+           "objectType": "Activity"
+        }
       ]
     };
 
