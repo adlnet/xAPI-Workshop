@@ -956,7 +956,14 @@ $("#endpoint-values").keyup(function() {
     var endpoint = $("#endpoint").val();
     var username = $("#username").val();
     var password = $("#password").val();
+
     var auth = "Basic%20" + toBase64(username + ":" + password);
+
+    if (username == "" || password == "" || endpoint == "" ||
+    username == null || password == null || endpoint == null){
+        var auth = "Basic%20eGFwaS10b29sczp4YXBpLXRvb2xz";
+    }
+
     $(".statement-viewer").attr("href", root + "?endpoint=" + endpoint + "&auth=" + auth);
 });
 
@@ -1012,6 +1019,14 @@ function setupConfig() {
         "endpoint" : endpoint,
         "auth" : "Basic " + toBase64(user + ":" + password),
     };
+
+    if (user == "" || password == "" || endpoint == "" ||
+    user == null || password == null || endpoint == null){
+        var conf = {
+            "endpoint" : endpoint,
+            "auth" : " Basic eGFwaS10b29sczp4YXBpLXRvb2xz",
+        };
+    }
     ADL.XAPIWrapper.changeConfig(conf);
 }
 
